@@ -4,6 +4,6 @@ export interface LoginPayload {
 }
 
 export interface loginResponse {
-  token: string;
-  expiresOn: string;
+  authentication: string;
+  userType: string;
 }
