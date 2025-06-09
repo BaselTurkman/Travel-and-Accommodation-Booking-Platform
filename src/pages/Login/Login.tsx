@@ -1,4 +1,4 @@
-import logo from "@/assets/images/logo.webp";
+import logo from "@/assets/images/logoV2.png";
 import loginImg from "@/assets/images/unnamed.png";
 import {
   Card,
