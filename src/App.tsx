@@ -1,10 +1,10 @@
-import Login from "./pages/Login";
 import Providers from "./Providers";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <Providers>
-      <Login />
+      <AppRoutes />
     </Providers>
   );
 }

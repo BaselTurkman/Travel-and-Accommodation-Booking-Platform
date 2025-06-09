@@ -1,13 +1,13 @@
 import { setSession } from "@/lib/session";
 import { useMutation } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../API";
 import { axiosInstance } from "@/config/axios.config";
 import { SessionData } from "@/types/SessionData";
 
 const useLoginAPI = () => {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { mutate: loginUser, isPending } = useMutation({
     mutationFn: loginAPI,
@@ -20,11 +20,11 @@ const useLoginAPI = () => {
       axiosInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${authentication}`;
-      /*
-      if (payload.userType == "Admin") navigate("/me/cities");
-      else navigate("/me");*/
+      //for now
+      navigate("/me")
     },
     onError: () => {
+      //waiting for a snackBar
       console.log("Errorrrrr!@#$");
       ;
     },
