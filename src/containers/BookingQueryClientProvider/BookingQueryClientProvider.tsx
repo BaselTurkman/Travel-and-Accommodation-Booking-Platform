@@ -1,4 +1,5 @@
 // import { useSnackBar } from "@/hooks/useSnackbar";
+import { useSnackBar } from "@/hooks/useSnackBar";
 import { AxiosBaseError } from "@/types/axios";
 import { extractErrorMessage } from "@/utils/errorHandling";
 import {
@@ -9,26 +10,30 @@ import {
 import { FC, PropsWithChildren } from "react";
 
 const BookingQueryClientProvider: FC<PropsWithChildren> = ({ children }) => {
-//   const { showErrorSnackbar } = useSnackBar();
-  const saferQueryClient = new QueryClient({
+  const { showErrorSnackbar } = useSnackBar();
+  const queryClient = new QueryClient({
     queryCache: new QueryCache({
       onError: (error) => {
         const errorMessage = extractErrorMessage(error as AxiosBaseError);
-        console.log(errorMessage);
-        
+        showErrorSnackbar({ message: errorMessage });
       },
     }),
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        refetchInterval: 60 * 60 * 1000, // 1 hour
+        refetchInterval: 60 * 60 * 1000,
+      },
+      mutations: {
+        onError: (error) => {
+          const errorMessage = extractErrorMessage(error as AxiosBaseError);
+          showErrorSnackbar({ message: errorMessage });
+        },
       },
     },
   });
+
   return (
-    <QueryClientProvider client={saferQueryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
 
