@@ -6,10 +6,13 @@ import { loginAPI } from "../API";
 import { axiosInstance } from "@/config/axios.config";
 import { SessionData } from "@/types/SessionData";
 import { useSnackBar } from "@/hooks/useSnackBar";
+import { useAppDispatch } from "@/store/store";
+import { login } from "@/features/User";
 
 const useLoginAPI = () => {
   const navigate = useNavigate();
   const { showSuccessSnackbar } = useSnackBar();
+  const dispatch = useAppDispatch();
 
   const { mutate: loginUser, isPending } = useMutation({
     mutationFn: loginAPI,
@@ -17,8 +20,7 @@ const useLoginAPI = () => {
       showSuccessSnackbar({ message: "Login Successful" });
       setSession(authentication);
       const payload = jwtDecode<SessionData>(authentication);
-      console.log(payload);
-
+      dispatch(login(payload))
       axiosInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${authentication}`;
