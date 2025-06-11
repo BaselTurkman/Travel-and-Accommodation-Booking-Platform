@@ -1,17 +1,15 @@
 import { Box, Grid, Typography } from "@mui/material";
 import useGetFeaturedDealAPI from "../hooks/useGetFeaturedDealAPI";
 import Deal from "./Deal";
+import RenderSkeletonCard from "./RenderSkeletonCard";
 
 const FeaturedDeals = () => {
   const { featuredDeals, isLoading } = useGetFeaturedDealAPI();
-
   const renderFeaturedDeals = featuredDeals.map((deal) => (
-    <Deal key={deal.hotelId} deal={deal} />
+    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+      <Deal key={deal.hotelId} deal={deal} />
+    </Grid>
   ));
-
-  if (isLoading) {
-    return <div>Loading....</div>;
-  }
 
   return (
     <Box mb={4}>
@@ -19,7 +17,7 @@ const FeaturedDeals = () => {
         Featured Deals
       </Typography>
       <Grid container spacing={2}>
-        {renderFeaturedDeals}
+        {isLoading ? <RenderSkeletonCard /> : renderFeaturedDeals}
       </Grid>
     </Box>
   );
