@@ -26,6 +26,8 @@ const Deal: FC<Props> = ({ deal }) => {
     hotelStarRating,
     originalRoomPrice,
     roomPhotoUrl,
+    description,
+    title,
   } = deal;
 
   return (
@@ -40,8 +42,18 @@ const Deal: FC<Props> = ({ deal }) => {
         <CardContent>
           <Stack gap={0.5}>
             <Box display="flex" alignItems="center">
-              <HotelIcon fontSize="small" color="action" sx={{ mr: 1 }} />
               <Typography variant="h6" fontWeight={600} gutterBottom>
+                {title}
+              </Typography>
+            </Box>
+            <Box my={1}>
+              <Typography variant="body2" color="textSecondary">
+                {description}
+              </Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <HotelIcon fontSize="small" color="action" sx={{ mr: 1 }} />
+              <Typography variant="body2" color="textSecondary" gutterBottom>
                 {hotelName}
               </Typography>
             </Box>
@@ -51,7 +63,7 @@ const Deal: FC<Props> = ({ deal }) => {
                 color="action"
                 sx={{ mr: 0.5 }}
               />
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="textSecondary">
                 {cityName}
               </Typography>
             </Box>
