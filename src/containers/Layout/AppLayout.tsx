@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const AppLayout: FC = () => {
 
   return (
-    <Box sx={{ transition: " 0.25s" }}>
+    <Box sx={{ transition: " 0.25s", bgcolor:"whitesmoke", height: "100%" }}>
       <Navbar />
       <Outlet />
     </Box>
