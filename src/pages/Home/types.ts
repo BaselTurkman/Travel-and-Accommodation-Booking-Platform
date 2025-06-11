@@ -25,3 +25,13 @@ export interface RecentHotel {
 }
 
 export type GetRecentHotel = Array<RecentHotel>
+
+export interface TrendingDestination{
+  cityId: number,
+  cityName: string,
+  countryName: string,
+  description: string,
+  thumbnailUrl: string
+}
+
+export type GetTrendingDestination = Array<TrendingDestination>
