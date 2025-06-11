@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import { useAppDispatch } from "@/store/store";
 import { logout } from "@/features/User";
 import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { Tooltip } from "@mui/material";
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
@@ -20,7 +22,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="info">
         <Toolbar>
           <IconButton
             size="large"
@@ -34,9 +36,11 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Booking
           </Typography>
-          <Button color="primary" variant="contained" onClick={handleLogout}>
-            Logout
-          </Button>
+          <Tooltip title="Log out" arrow>
+            <Button color="error" variant="text" onClick={handleLogout}>
+              <LogOut />
+            </Button>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </Box>
