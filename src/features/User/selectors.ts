@@ -13,3 +13,7 @@ export const selectUserRole = createSelector(
   (user) => user.userType
 );
 
+export const selectUserId = createSelector(
+  selectUser,
+  (user) => user.user_id
+)
