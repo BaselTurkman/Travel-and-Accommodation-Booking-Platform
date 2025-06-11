@@ -7,7 +7,7 @@ const FeaturedDeals = () => {
   const { featuredDeals, isLoading } = useGetFeaturedDealAPI();
   const renderFeaturedDeals = featuredDeals.map((deal) => (
     <Grid size={{ xs: 12, sm: 6, md: 3 }} key={deal.hotelId + deal.hotelName}>
-      <Deal  deal={deal} />
+      <Deal deal={deal} />
     </Grid>
   ));
 

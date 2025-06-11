@@ -31,7 +31,7 @@ const Deal: FC<Props> = ({ deal }) => {
         </Box>
         <Box my={1}>
           <Typography variant="body2" color="textSecondary">
-            {description}
+            {description.slice(0, 100)}...
           </Typography>
         </Box>
         <Box display="flex" alignItems="center">

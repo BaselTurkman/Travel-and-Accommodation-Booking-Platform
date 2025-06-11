@@ -1,18 +1,17 @@
-import PageContainer from "@/containers/PageContainer";
 import FeaturedDeals from "./components/FeaturedDeals";
 import RecentVisitedHotels from "./components/RecentVisitedHotels";
 import TrendingDestination from "./components/TrendingDestination";
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 
 const Home = () => {
   return (
-    <PageContainer>
+    <Container sx={{my: 5, p: 5}}>
       <Stack gap={2}>
         <FeaturedDeals />
         <RecentVisitedHotels />
         <TrendingDestination />
       </Stack>
-    </PageContainer>
+    </Container>
   );
 };
 

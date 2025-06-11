@@ -6,7 +6,7 @@ import RenderSkeletonCard from "./RenderSkeletonCard";
 const RecentVisitedHotels = () => {
   const { recentVisitedHotels, isLoading } = useGetRecentVisitedHotelAPI();
   const renderVisitedHotels = recentVisitedHotels.map((hotel) => (
-    <Grid key={hotel.hotelId} size={{ xs: 12, sm: 4 }}>
+    <Grid key={hotel.hotelId} size={{ xs: 12, sm: 6, md: 4 }}>
       <Hotel hotel={hotel} />
     </Grid>
   ));
