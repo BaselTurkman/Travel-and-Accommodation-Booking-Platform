@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/config/axios.config";
-import { GetFeaturesDealsResponse, GetRecentHotel } from "../types";
+import { GetFeaturesDealsResponse, GetRecentHotel, GetTrendingDestination } from "../types";
 
 export const getFeaturedDealAPI = async () => {
   const res = await axiosInstance.get<GetFeaturesDealsResponse>("/home/featured-deals");
@@ -8,5 +8,10 @@ export const getFeaturedDealAPI = async () => {
 
 export const getRecentVisitedHotelAPI = async (id: string) => {
   const res = await axiosInstance.get<GetRecentHotel>(`/home/users/${id}/recent-hotels`);
+  return res.data;
+};
+
+export const getTrendingDestinationAPI = async () => {
+  const res = await axiosInstance.get<GetTrendingDestination>(`/home/destinations/trending`);
   return res.data;
 };
