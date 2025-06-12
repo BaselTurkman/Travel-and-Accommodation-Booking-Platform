@@ -1,14 +1,18 @@
 import { Box, Grid, Typography } from "@mui/material";
 import useGetFeaturedDealAPI from "../hooks/useGetFeaturedDealAPI";
 import Deal from "./Deal";
-import RenderSkeletonCard from "./RenderSkeletonCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { settings } from "../constants";
+import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 
 const FeaturedDeals = () => {
   const { featuredDeals, isLoading } = useGetFeaturedDealAPI();
   const renderFeaturedDeals = featuredDeals.map((deal) => (
-    <Grid size={{ xs: 12, sm: 6, md: 3 }} key={deal.hotelId + deal.hotelName}>
+    <Box px={2} my={2} key={deal.hotelId}>
       <Deal deal={deal} />
-    </Grid>
+    </Box>
   ));
 
   return (
@@ -16,9 +20,13 @@ const FeaturedDeals = () => {
       <Typography variant="h5" gutterBottom>
         Featured Deals
       </Typography>
-      <Grid container spacing={2}>
-        {isLoading ? <RenderSkeletonCard /> : renderFeaturedDeals}
-      </Grid>
+      {isLoading ? (
+        <Grid container spacing={2}>
+          <BaseCardSkeleton />
+        </Grid>
+      ) : (
+        <Slider {...settings}>{renderFeaturedDeals}</Slider>
+      )}
     </Box>
   );
 };

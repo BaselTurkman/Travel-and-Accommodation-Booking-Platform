@@ -10,7 +10,7 @@ const Home = () => {
     <PageContainer>
       <Stack gap={2}>
         <Box textAlign="center" mb={2}>
-          <Typography variant="h4" fontWeight="bold">
+          <Typography variant="h3" fontWeight="bold">
             Find Your Next Stay
           </Typography>
           <Typography variant="subtitle1" color="text.secondary">
