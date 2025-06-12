@@ -2,11 +2,12 @@ import SearchForm from "@/components/SearchForm";
 import FeaturedDeals from "./components/FeaturedDeals";
 import RecentVisitedHotels from "./components/RecentVisitedHotels";
 import TrendingDestination from "./components/TrendingDestination";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
+import PageContainer from "@/containers/PageContainer";
 
 const Home = () => {
   return (
-    <Container sx={{ my: 5, p: 5 }}>
+    <PageContainer>
       <Stack gap={2}>
         <Box textAlign="center" mb={2}>
           <Typography variant="h4" fontWeight="bold">
@@ -22,7 +23,7 @@ const Home = () => {
         <RecentVisitedHotels />
         <TrendingDestination />
       </Stack>
-    </Container>
+    </PageContainer>
   );
 };
 
