@@ -2,22 +2,20 @@ import { Box, Button, Menu, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
 import NumericInput from "../NumericInput";
 import { GuestRoomSelectorProps } from "./types";
+import PersonIcon from '@mui/icons-material/Person';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
+import HotelIcon from '@mui/icons-material/Hotel';
 
 const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
-  const { adults, children, rooms, setAdults, setChildren, setRooms } = guestRoomSelector 
-   
+  const { adults, children, rooms, setAdults, setChildren, setRooms } =
+    guestRoomSelector;
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-
-  const summaryText = `${adults} Adult${
-    adults > 1 ? "s" : ""
-  }, ${children} Child${children !== 1 ? "ren" : ""}, ${rooms} Room${
-    rooms > 1 ? "s" : ""
-  }`;
 
   const options = [
     {
@@ -39,9 +37,23 @@ const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
 
   return (
     <Box>
-      <Button variant="outlined" onClick={handleClick} sx={{ minWidth: 250 }}>
-        {summaryText}
+      <Button variant="text" onClick={handleClick} sx={{ minWidth: 320 }}>
+        <Box display="flex" alignItems="center"  gap={1}>
+          <PersonIcon fontSize="small" />
+          <Typography variant="body2">
+            {adults} Adult{adults > 1 ? "s" : ""}
+          </Typography>
+          <ChildCareIcon fontSize="small" />
+          <Typography variant="body2">
+            {children} Child{children !== 1 ? "ren" : ""}
+          </Typography>
+          <HotelIcon fontSize="small" />
+          <Typography variant="body2">
+            {rooms} Room{rooms > 1 ? "s" : ""}
+          </Typography>
+        </Box>
       </Button>
+
       <Menu
         anchorEl={anchorEl}
         open={open}
