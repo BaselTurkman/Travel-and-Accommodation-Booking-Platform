@@ -24,7 +24,13 @@ const BaseCard: FC<BaseCardProps> = ({
         },
       }}
     >
-      <CardMedia component="img" height={height} image={image} alt={alt} />
+      <CardMedia
+        component="img"
+        height={height}
+        image={image}
+        alt={alt}
+        loading="lazy"
+      />
       <CardContent sx={{ flexGrow: 1 }}>{children}</CardContent>
     </Card>
   );

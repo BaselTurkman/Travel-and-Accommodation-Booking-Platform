@@ -35,6 +35,7 @@ const Destination: FC<Props> = ({ destination }) => {
             height="450"
             image={thumbnailUrl}
             alt={`${cityName}, ${countryName}`}
+            loading="lazy"
           />
           <Box
             position="absolute"
