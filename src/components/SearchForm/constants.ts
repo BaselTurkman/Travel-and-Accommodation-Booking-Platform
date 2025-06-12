@@ -1,4 +1,4 @@
-import { SearchQuery } from "./types";
+import { SearchQuery } from "@/types";
 
 const today = new Date();
 const tomorrow = new Date();

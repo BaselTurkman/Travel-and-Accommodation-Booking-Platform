@@ -1,5 +1,5 @@
 import { Stack, Paper } from "@mui/material";
-import { useState } from "react";
+import { FC } from "react";
 import DatePickerField from "../Fields/DatePickerField";
 import TextField from "../Fields/TextField";
 import { Form, FormikProvider, useFormik } from "formik";
@@ -7,17 +7,24 @@ import GuestRoomSelector from "../Fields/GuestRoomSelector/GuestRoomSelector";
 import { initialValues } from "./constants";
 import SearchButton from "../Buttons/SearchButton/SearchButton";
 import { validationSchema } from "./formSchema";
+import { useNavigate } from "react-router-dom";
+import { SearchFormProps } from "./types";
+import { useAppDispatch } from "@/store/store";
+import { setSearchQuery } from "@/features/SearchQuery";
+import { SearchQuery } from "@/types";
 
-const SearchForm = () => {
-  const today = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [rooms, setRooms] = useState(1);
-
-  const onSubmit = () => {};
+const SearchForm: FC<SearchFormProps> = ({
+  isInSearchPage = true,
+  isLoading = false,
+}) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+  const onSubmit = (values: SearchQuery) => {
+    dispatch(setSearchQuery({...values}))
+    if (!isInSearchPage) {
+      navigate("search-result");
+    }
+  };
 
   const formikProps = useFormik({
     initialValues: initialValues,
@@ -37,21 +44,23 @@ const SearchForm = () => {
           >
             <TextField
               name="city"
+              label=""
               placeholder="Search for hotels, cities..."
             />
             <DatePickerField name="checkInDate" label="Check-In" />
             <DatePickerField name="checkOutDate" label="Check-Out" />
             <GuestRoomSelector
               guestRoomSelector={{
-                adults,
-                children,
-                rooms,
-                setAdults,
-                setChildren,
-                setRooms,
+                adults: formikProps.values.adults,
+                children: formikProps.values.children,
+                rooms: formikProps.values.numberOfRooms,
+                setAdults: (val) => formikProps.setFieldValue("adults", val),
+                setChildren: (val) =>
+                  formikProps.setFieldValue("children", val),
+                setRooms: (val) => formikProps.setFieldValue("rooms", val),
               }}
             />
-            <SearchButton disabled={false} loading={false}/>
+            <SearchButton disabled={isLoading} loading={false} />
           </Stack>
         </Form>
       </FormikProvider>
