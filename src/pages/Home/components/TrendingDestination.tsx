@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
-import RenderSkeletonCard from "./RenderSkeletonCard";
 import useGetTrendingDestinationAPI from "../hooks/useGetTrendingDestinationAPI";
 import Destination from "./Destination";
+import MediaCardSkeleton from "@/components/Skeletons/MediaCardSkeleton";
 
 const TrendingDestination = () => {
   const { trendingDestinations, isLoading } = useGetTrendingDestinationAPI();
@@ -17,7 +17,7 @@ const TrendingDestination = () => {
         Trending Destinations
       </Typography>
       <Grid container spacing={2}>
-        {isLoading ? <RenderSkeletonCard /> : renderTrendingDestination}
+        {isLoading ? <MediaCardSkeleton /> : renderTrendingDestination}
       </Grid>
     </Box>
   );

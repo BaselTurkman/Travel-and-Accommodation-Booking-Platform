@@ -7,8 +7,8 @@ import {
   Skeleton,
 } from "@mui/material";
 
-const RenderSkeletonCard = () => {
-  const skeletonArray = Array.from({ length: 6 });
+const BaseCardSkeleton = () => {
+  const skeletonArray = Array.from({ length: 3 });
 
   const renderSkeletonCard = (
     <Card elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
@@ -35,4 +35,4 @@ const RenderSkeletonCard = () => {
   ));
 };
 
-export default RenderSkeletonCard;
+export default BaseCardSkeleton;

@@ -28,7 +28,9 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
+    "react-slick": "^0.30.3",
     "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {
@@ -37,6 +39,7 @@
     "@types/node": "^22.15.30",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/react-slick": "^0.23.13",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
