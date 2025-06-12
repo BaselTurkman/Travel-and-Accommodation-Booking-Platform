@@ -1,20 +1,13 @@
-import { Card, CardProps } from "@mui/material";
+import { Container, ContainerProps, Fade } from "@mui/material";
 import { FC } from "react";
 
-const PageContainer: FC<CardProps> = ({ children, sx, ...rest }) => {
+const PageContainer: FC<ContainerProps> = ({ children, sx, ...rest }) => {
   return (
-    <Card
-      sx={{
-        width: "90%",
-        m: "auto",
-        my: 5,
-        p: 4,
-        ...sx,
-      }}
-      {...rest}
-    >
-      {children}
-    </Card>
+    <Fade in={true} timeout={500}>
+      <Container sx={{ p: 5, m: "auto", my: 5, ...sx }} {...rest}>
+        {children}
+      </Container>
+    </Fade>
   );
 };
 
