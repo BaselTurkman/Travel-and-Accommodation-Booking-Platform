@@ -1,6 +1,6 @@
 import AppLayout from "@/containers/Layout";
 import { RouteObject } from "react-router-dom";
-import { Home } from "./imports";
+import { Home, SearchResult } from "./imports";
 import AuthRoute from "./AuthRoute";
 
 const privateRoutes: RouteObject = {
@@ -13,6 +13,10 @@ const privateRoutes: RouteObject = {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: "search-result",
+          element: <SearchResult />,
         },
       ],
     },
