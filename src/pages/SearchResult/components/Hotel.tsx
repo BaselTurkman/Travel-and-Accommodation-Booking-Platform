@@ -5,8 +5,8 @@ import HotelIcon from "@mui/icons-material/Hotel";
 import { FC } from "react";
 import { SearchResult } from "../types";
 import BaseCard from "@/components/BaseCard";
+import HotelAmenities from "@/components/HotelAmenities";
 
-// Props interface
 interface Props {
   hotel: SearchResult;
 }
@@ -37,6 +37,8 @@ const Hotel: FC<Props> = ({ hotel }) => {
           </Typography>
         </Box>
 
+        <HotelAmenities amenities={hotel.amenities} />
+
         <Box display="flex" alignItems="center">
           <Rating value={starRating} precision={0.5} readOnly size="medium" />
           <Typography variant="body2" color="text.secondary" ml={1}>
@@ -63,7 +65,6 @@ const Hotel: FC<Props> = ({ hotel }) => {
             / night
           </Typography>
         </Box>
-
       </Stack>
     </BaseCard>
   );

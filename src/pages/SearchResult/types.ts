@@ -1,4 +1,4 @@
-import { Amenities } from "@/types";
+import { Amenity  } from "@/types";
 
 export interface SearchResult{
     hotelId: number,
@@ -11,7 +11,7 @@ export interface SearchResult{
     cityName: string,
     roomPhotoUrl: string,
     discount: number,
-    amenities: Amenities[]
+    amenities: Amenity[]
 }
 
 export type GetSearchResultAPI = Array<SearchResult>;
