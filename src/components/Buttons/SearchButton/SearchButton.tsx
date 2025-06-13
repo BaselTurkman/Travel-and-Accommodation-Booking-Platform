@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { FC } from "react";
 import { SearchButtonProp } from "./types";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 const SearchButton: FC<SearchButtonProp> = ({ disabled, loading }) => {
   return (
@@ -13,6 +13,7 @@ const SearchButton: FC<SearchButtonProp> = ({ disabled, loading }) => {
       sx={{ minWidth: 100 }}
       disabled={disabled}
       loading={loading}
+      loadingIndicator={<CircularProgress color="inherit" size={20} />}
     >
       Search
     </Button>
