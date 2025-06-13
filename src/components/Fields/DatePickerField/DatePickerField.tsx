@@ -31,7 +31,7 @@ const DatePickerField: FC<DatePickerFieldProps> = ({
           fullWidth: true,
           size: "small",
           error: !!(meta.touched && meta.error),
-          helperText: meta.touched,
+          helperText: meta.touched && meta.error,
           disabled,
         },
       }}
