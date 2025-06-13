@@ -18,7 +18,7 @@ const Home = () => {
             adventure.
           </Typography>
         </Box>
-        <SearchForm />
+        <SearchForm isInSearchPage={false} />
         <FeaturedDeals />
         <RecentVisitedHotels />
         <TrendingDestination />

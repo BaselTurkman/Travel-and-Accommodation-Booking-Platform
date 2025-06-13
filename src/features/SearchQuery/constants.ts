@@ -1,10 +1,10 @@
-import { SearchQuery } from "./types";
+import { SearchQuery } from "@/types";
 
 const today = new Date();
 const tomorrow = new Date();
 tomorrow.setDate(today.getDate() + 1);
 
-export const initialValues: SearchQuery = {
+export const initialState: SearchQuery = {
   checkInDate: today.toISOString().split("T")[0],
   checkOutDate: tomorrow.toISOString().split("T")[0],
   city: "",

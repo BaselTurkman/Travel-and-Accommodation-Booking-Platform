@@ -1,10 +1,4 @@
-export interface SearchQuery {
-  checkInDate?: string;
-  checkOutDate?: string;
-  city?: string;
-  numberOfRooms?: number;
-  adults?: number;
-  children?: number;
-  sort?: string;
-  starRate?: number;
+export interface SearchFormProps {
+  isInSearchPage?: boolean;
+  isLoading?: boolean;
 }
