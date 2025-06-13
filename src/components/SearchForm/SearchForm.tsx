@@ -3,7 +3,6 @@ import { FC, useState } from "react";
 import DatePickerField from "../Fields/DatePickerField";
 import TextField from "../Fields/TextField";
 import { Form, FormikProvider, useFormik } from "formik";
-import GuestRoomSelector from "../Fields/GuestRoomSelector/GuestRoomSelector";
 import SearchButton from "../Buttons/SearchButton/SearchButton";
 import { validationSchema } from "./formSchema";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +17,7 @@ import { SearchQuery } from "@/types";
 import ResetButton from "../Buttons/ResetButton/ResetButton";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
+import GuestRoomSelector from "../Fields/GuestRoomSelector";
 
 const SearchForm: FC<SearchFormProps> = ({
   isInSearchPage = true,
