@@ -6,6 +6,7 @@ import { FC } from "react";
 import { SearchResult } from "../types";
 import BaseCard from "@/components/BaseCard";
 import HotelAmenities from "@/components/HotelAmenities";
+import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
 
 interface Props {
   hotel: SearchResult;
@@ -46,7 +47,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
           </Typography>
         </Box>
 
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box display="flex" alignItems="center" gap={1} justifyContent="space-between">
           <AttachMoneyIcon fontSize="small" color="action" />
           <Typography
             variant="body2"
@@ -64,6 +65,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
           <Typography variant="body2" color="text.secondary">
             / night
           </Typography>
+          <NavigationButton to="/me" caption="show more details"/>
         </Box>
       </Stack>
     </BaseCard>

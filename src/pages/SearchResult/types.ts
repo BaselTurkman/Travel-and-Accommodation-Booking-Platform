@@ -1,17 +1,19 @@
-import { Amenity  } from "@/types";
+import { Amenity } from "@/types";
 
-export interface SearchResult{
-    hotelId: number,
-    hotelName: string,
-    starRating: number,
-    latitude: number,
-    longitude: number,
-    roomPrice: number,
-    roomType: string,
-    cityName: string,
-    roomPhotoUrl: string,
-    discount: number,
-    amenities: Amenity[]
+export interface SearchResult {
+  hotelId: number;
+  hotelName: string;
+  starRating: number;
+  latitude: number;
+  longitude: number;
+  roomPrice: number;
+  roomType: string;
+  cityName: string;
+  roomPhotoUrl: string;
+  discount: number;
+  amenities: Amenity[];
 }
 
 export type GetSearchResultAPI = Array<SearchResult>;
+
+export type GetAmenitiesAPI = Array<Amenity>;

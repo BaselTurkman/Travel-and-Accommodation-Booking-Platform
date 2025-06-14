@@ -8,8 +8,9 @@ import NoHotelsFound from "./NoHotelsFound";
 
 const Hotels = () => {
   const { searchResult, isLoading } = useGetSearchResultAPI();
+  
   const renderSearchResult = searchResult.map((hotel) => (
-    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={hotel.hotelId}>
+    <Grid size={{ xs: 12, sm: 6 }} key={hotel.hotelId}>
       <Hotel hotel={hotel} />
     </Grid>
   ));
@@ -18,9 +19,6 @@ const Hotels = () => {
 
   return (
     <Box mb={4}>
-      <Typography variant="h5" gutterBottom>
-        Search Result
-      </Typography>
       <Grid container spacing={2}>
         {isLoading ? (
           <BaseCardSkeleton />
