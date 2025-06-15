@@ -1,7 +1,7 @@
-export interface Amenity{
-    id: number,
-    name: string,
-    description: string
+export interface Amenity {
+  id: number;
+  name: string;
+  description: string;
 }
 
 export interface SearchQuery {
@@ -13,4 +13,16 @@ export interface SearchQuery {
   children: number;
   sort?: string;
   starRate?: number;
+}
+
+export interface Room {
+  roomId: number;
+  roomNumber: number;
+  roomPhotoUrl: string;
+  roomType: string;
+  capacityOfAdults: number;
+  capacityOfChildren: number;
+  roomAmenities: Amenity[];
+  price: number;
+  availability: boolean;
 }

@@ -4,7 +4,7 @@ import { HotelInformation } from "../types";
 
 const useGetHotelDetailsAPI = (hotelId: string) => {
   const { data: hotelInformation, isLoading } = useQuery<HotelInformation>({
-    queryKey: ["hotel-information"],
+    queryKey: ["hotel-information", hotelId],
     queryFn: () => getHotelDetailsAPI(hotelId),
   });
 

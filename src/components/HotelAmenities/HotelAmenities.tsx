@@ -1,27 +1,29 @@
 import { FC } from "react";
 import { Box, Stack, Typography, Tooltip } from "@mui/material";
 import { HotelAmenitiesProps } from "./types";
-
+import { bgColors } from "./constants";
 
 const HotelAmenities: FC<HotelAmenitiesProps> = ({ amenities }) => {
   if (!amenities.length) return null;
 
   return (
-    <Box>
-      <Typography variant="subtitle2" fontWeight={600} gutterBottom>
+    <Box my={1}>
+      <Typography variant="body1" fontWeight={600} gutterBottom>
         Amenities
       </Typography>
       <Stack direction="row" flexWrap="wrap" gap={1}>
         {amenities.map((amenity, index) => (
-          <Tooltip key={`${amenity.name}-${index}`} title={amenity.description} arrow>
+          <Tooltip
+            key={`${amenity.name}-${index}`}
+            title={amenity.description}
+            arrow
+          >
             <Box
-              sx={{
-                px: 1.5,
-                py: 0.5,
-                backgroundColor: "#f0f0f0",
-                borderRadius: 1.5,
-                fontSize: "0.8rem",
-              }}
+              px={1.5}
+              py={0.5}
+              borderRadius={2}
+              fontSize="0.8rem"
+              bgcolor={bgColors[index % bgColors.length]}
             >
               {amenity.name}
             </Box>
