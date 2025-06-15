@@ -17,7 +17,7 @@ const AvailableRooms: FC<AvailableRoomsProps> = ({ hotelId }) => {
   ));
 
   return (
-    <Box my={2}>
+    <Box>
       <Typography variant="h4" textAlign="center">
         Available Rooms
       </Typography>

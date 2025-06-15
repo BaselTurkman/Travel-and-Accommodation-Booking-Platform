@@ -41,44 +41,49 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
 
   return (
     <BaseCard image={roomPhotoUrl} alt={`${roomType} thumbnail`}>
-      <Stack spacing={2}>
-        <Box display="flex" justifyContent="space-between">
-          <Typography
-            variant="h6"
-            fontWeight={700}
-            align="center"
-            fontSize={{ xs: 16, md: 20 }}
-          >
-            {roomType} Room
-          </Typography>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            gap={1}
-          >
-            <AttachMoneyIcon color="success" />
-            <Typography variant="subtitle1" fontWeight={500}>
-              {price}
+      <Stack spacing={2} justifyContent="space-between" sx={{ height: "100%" }}>
+        <Stack spacing={2} sx={{ flexGrow: 1 }}>
+          <Box display="flex" justifyContent="space-between">
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              align="center"
+              fontSize={{ xs: 16, md: 20 }}
+            >
+              {roomType} Room
             </Typography>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={1}
+            >
+              <AttachMoneyIcon color="success" />
+              <Typography variant="subtitle1" fontWeight={500}>
+                {price}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider sx={{ mb: 1 }} />
-
-        <Box display="flex" gap={2}>
-          <Chip
-            icon={<GroupIcon />}
-            label={`Adults: ${capacityOfAdults}`}
-            color="primary"
-          />
-          <Chip
-            icon={<ChildCareIcon />}
-            label={`Children: ${capacityOfChildren}`}
-            color="warning"
-          />
-        </Box>
-        <HotelAmenities amenities={roomAmenities} />
-        <Divider sx={{ mb: 1 }} />
+          <Divider sx={{ mb: 1 }} />
+          <Box display="flex" gap={2}>
+            <Chip
+              sx={{ px: 0.5, py: 1 }}
+              size="small"
+              icon={<GroupIcon />}
+              label={`Adults: ${capacityOfAdults}`}
+              color="primary"
+            />
+            <Chip
+              size="small"
+              sx={{ px: 0.5, py: 1 }}
+              icon={<ChildCareIcon />}
+              label={`Children: ${capacityOfChildren}`}
+              color="warning"
+            />
+          </Box>
+          <HotelAmenities amenities={roomAmenities} />
+          <Divider sx={{ mb: 1 }} />
+        </Stack>
         <Box display="flex" justifyContent="center" alignItems="center">
           <AddToCartButton
             onClick={handleAddToCart}

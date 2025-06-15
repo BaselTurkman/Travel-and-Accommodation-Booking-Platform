@@ -6,6 +6,7 @@ import { FC } from "react";
 import { RecentHotel } from "../types";
 import HotelIcon from "@mui/icons-material/Hotel";
 import BaseCard from "@/components/BaseCard";
+import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
 
 interface Props {
   hotel: RecentHotel;
@@ -20,6 +21,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
     thumbnailUrl,
     priceLowerBound,
     priceUpperBound,
+    hotelId
   } = hotel;
 
   const visitDateFormatted = new Date(visitDate).toLocaleDateString();
@@ -76,6 +78,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
             Visited on: {visitDateFormatted}
           </Typography>
         </Box>
+        <NavigationButton to={`/me/hotel/${hotelId}`} caption="show more details"/>
       </Stack>
     </BaseCard>
   );

@@ -44,7 +44,7 @@ export default function Navbar() {
           </Typography>
 
           <Tooltip title="Cart" arrow>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={() => navigate("/me/checkout")}>
               <Badge badgeContent={cartItemCount} color="error">
                 <ShoppingCartIcon />
               </Badge>
