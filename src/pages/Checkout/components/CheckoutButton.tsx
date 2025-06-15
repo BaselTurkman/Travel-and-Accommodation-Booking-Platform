@@ -16,8 +16,6 @@ function CheckoutButton() {
     values: BookingPayload,
     helpers: FormikHelpers<BookingPayload>
   ) => {
-    console.log(values);
-
     addBooking(values, {
       onSuccess: () => {
         helpers.resetForm();

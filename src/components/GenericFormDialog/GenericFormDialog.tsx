@@ -10,7 +10,7 @@ import {
 import { FormikProvider, useFormik, Form, FormikValues } from "formik";
 import { GenericFormDialogProps } from "./types";
 
-export default function GenericFormDialog<T extends FormikValues>({
+const GenericFormDialog = <T extends FormikValues>({
   open,
   handleClose,
   initialValues,
@@ -20,7 +20,7 @@ export default function GenericFormDialog<T extends FormikValues>({
   validationSchema,
   children,
   formType = "add",
-}: GenericFormDialogProps<T>) {
+}: GenericFormDialogProps<T>) => {
   const formik = useFormik<T>({
     initialValues,
     onSubmit,
@@ -60,4 +60,6 @@ export default function GenericFormDialog<T extends FormikValues>({
       </FormikProvider>
     </Dialog>
   );
-}
+};
+
+export default GenericFormDialog;

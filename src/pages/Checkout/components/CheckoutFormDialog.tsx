@@ -20,7 +20,7 @@ interface Props {
   formType?: string;
 }
 
-const CheckoutFormDialog = ({
+const CheckoutFormDialog: React.FC<Props> = ({
   open,
   handleClose,
   initialValues,
@@ -28,7 +28,7 @@ const CheckoutFormDialog = ({
   isPending,
   title,
   formType = "add",
-}: Props) => {
+}) => {
   return (
     <GenericFormDialog<BookingPayload>
       open={open}
@@ -59,9 +59,14 @@ const CheckoutFormDialog = ({
           </Grid>
 
           <Grid size={{ xs: 12 }}>
-            <NumericInput name="totalCost" placeholder="Total Cost" value={0} min={0} fullWidth />
+            <NumericInput
+              name="totalCost"
+              min={0}
+              label="Total Cost"
+              fullWidth
+            />
           </Grid>
-          <Grid size={{ xs: 12, }}>
+          <Grid size={{ xs: 12 }}>
             <TextField
               name="paymentMethod"
               aria-label="Enter a Payment Method"
