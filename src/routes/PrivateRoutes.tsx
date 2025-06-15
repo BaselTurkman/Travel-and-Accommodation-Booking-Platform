@@ -1,6 +1,12 @@
 import AppLayout from "@/containers/Layout";
 import { RouteObject } from "react-router-dom";
-import { Checkout, Home, HotelDetails, SearchResult } from "./imports";
+import {
+  Checkout,
+  ConfirmationBooking,
+  Home,
+  HotelDetails,
+  SearchResult,
+} from "./imports";
 import AuthRoute from "./AuthRoute";
 
 const privateRoutes: RouteObject = {
@@ -25,6 +31,10 @@ const privateRoutes: RouteObject = {
         {
           path: "checkout",
           element: <Checkout />,
+        },
+        {
+          path: "confirmation/:bookingId",
+          element: <ConfirmationBooking />,
         },
       ],
     },

@@ -5,3 +5,4 @@ export const Home = lazy(() => import("@/pages/Home"));
 export const SearchResult = lazy(() => import("@/pages/SearchResult"));
 export const HotelDetails = lazy(() => import("@/pages/HotelDetails"));
 export const Checkout = lazy(() => import("@/pages/Checkout"));
+export const ConfirmationBooking = lazy(() => import("@/pages/ConformationBooking"))
