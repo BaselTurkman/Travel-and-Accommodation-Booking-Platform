@@ -15,18 +15,13 @@ const FilterAmenitiesSkeleton = () => {
         <Skeleton variant="rounded" width="40%" height={24} />
       </Typography>
       <Divider sx={{ mb: 2 }} />
-
       <FormGroup>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+        <Box display="flex" alignItems="center" mb={1}>
           <Checkbox disabled />
           <Skeleton variant="text" width="30%" height={20} />
         </Box>
-
         {Array.from({ length: 6 }).map((_, index) => (
-          <Box
-            key={index}
-            sx={{ display: "flex", alignItems: "center", mb: 1 }}
-          >
+          <Box key={index} display="flex" alignItems="center" mb={1}>
             <Checkbox disabled />
             <Skeleton variant="text" width="60%" height={20} />
           </Box>
