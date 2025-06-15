@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Typography, Box, Stack, Divider, Chip } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import GroupIcon from "@mui/icons-material/Group";
@@ -8,9 +8,14 @@ import HotelAmenities from "@/components/HotelAmenities";
 import AddToCartButton from "@/components/Buttons/AddToCartButton";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import { HotelRoomProps } from "./types";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { addToCart, removeFromCart, selectIsRoomInCart } from "@/features/Cart";
 
 const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
-  const { showSuccessSnackbar } = useSnackBar();
+  const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
+  const dispatch = useAppDispatch();
+  const isRoomInCart = useAppSelector(selectIsRoomInCart(room.roomId));
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const {
     roomType,
     roomPhotoUrl,
@@ -21,8 +26,17 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
   } = room;
 
   const handleAddToCart = () => {
-    //TD Do : Implements Add To Cart Feature
-    showSuccessSnackbar({ message: "Room added to cart successfully." });
+    setIsButtonDisabled(true);
+    if (isRoomInCart) {
+      dispatch(removeFromCart({ roomNumber: room.roomNumber }));
+      showWarningSnackbar({ message: "Room removed from your cart." });
+    } else {
+      dispatch(addToCart({ room }));
+      showSuccessSnackbar({ message: "Room added to cart successfully." });
+    }
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 1500);
   };
 
   return (
@@ -66,7 +80,13 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
         <HotelAmenities amenities={roomAmenities} />
         <Divider sx={{ mb: 1 }} />
         <Box display="flex" justifyContent="center" alignItems="center">
-          <AddToCartButton onClick={handleAddToCart} />
+          <AddToCartButton
+            onClick={handleAddToCart}
+            disabled={isButtonDisabled}
+            text={isRoomInCart ? "Remove from Cart" : "Add to Cart"}
+            color={isRoomInCart ? "error" : "primary"}
+            variant={isRoomInCart ? "contained" : "outlined"}
+          />
         </Box>
       </Stack>
     </BaseCard>

@@ -8,11 +8,13 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({
   disabled = false,
   fullWidth = false,
   text = "Add to Cart",
+  color = "primary",
+  variant = "outlined",
 }) => {
   return (
     <Button
-      variant="outlined"
-      color="primary"
+      variant={variant}
+      color={color}
       startIcon={<ShoppingCartIcon />}
       onClick={onClick}
       disabled={disabled}
