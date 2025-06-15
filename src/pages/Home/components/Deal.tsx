@@ -4,6 +4,7 @@ import { FC } from "react";
 import HotelIcon from "@mui/icons-material/Hotel";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import BaseCard from "@/components/BaseCard";
+import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
 
 interface Props {
   deal: FeatureDeal;
@@ -19,6 +20,7 @@ const Deal: FC<Props> = ({ deal }) => {
     roomPhotoUrl,
     description,
     title,
+    hotelId
   } = deal;
 
   return (
@@ -67,6 +69,7 @@ const Deal: FC<Props> = ({ deal }) => {
             ${finalPrice}
           </Typography>
         </Box>
+        <NavigationButton to={`/me/hotel/${hotelId}`} caption="show more details"/>
       </Stack>
     </BaseCard>
   );
