@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Hotel: FC<Props> = ({ hotel }) => {
-  const { hotelName, starRating, discount, roomPhotoUrl, roomPrice, cityName } =
+  const { hotelName, starRating, discount, roomPhotoUrl, roomPrice, cityName, hotelId } =
     hotel;
 
   const priceLowerBound = +(roomPrice - roomPrice * (discount / 100)).toFixed(
@@ -65,7 +65,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
           <Typography variant="body2" color="text.secondary">
             / night
           </Typography>
-          <NavigationButton to="/me" caption="show more details"/>
+          <NavigationButton to={`/me/hotel/${hotelId}`} caption="show more details"/>
         </Box>
       </Stack>
     </BaseCard>
