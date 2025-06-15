@@ -4,7 +4,7 @@ import { GetHotelReviews } from "../types";
 
 const useGetHotelReviewsAPI = (hotelId: string) => {
   const { data: hotelReviews, isLoading } = useQuery<GetHotelReviews>({
-    queryKey: ["hotel-reviews"],
+    queryKey: ["hotel-reviews", hotelId],
     queryFn: () => getHotelReviewsAPI(hotelId),
   });
 

@@ -1,4 +1,4 @@
-import { Amenity } from "@/types";
+import { Amenity, Room } from "@/types";
 
 export interface HotelInformation {
   hotelName: string;
@@ -21,3 +21,5 @@ export interface HotelReview {
 }
 
 export type GetHotelReviews = Array<HotelReview>;
+
+export type GetAvailableRooms = Array<Room>
