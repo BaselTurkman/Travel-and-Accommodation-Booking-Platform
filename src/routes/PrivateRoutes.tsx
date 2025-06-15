@@ -1,6 +1,6 @@
 import AppLayout from "@/containers/Layout";
 import { RouteObject } from "react-router-dom";
-import { Home, HotelDetails, SearchResult } from "./imports";
+import { Checkout, Home, HotelDetails, SearchResult } from "./imports";
 import AuthRoute from "./AuthRoute";
 
 const privateRoutes: RouteObject = {
@@ -21,6 +21,10 @@ const privateRoutes: RouteObject = {
         {
           path: "hotel/:hotelId",
           element: <HotelDetails />,
+        },
+        {
+          path: "checkout",
+          element: <Checkout />,
         },
       ],
     },
