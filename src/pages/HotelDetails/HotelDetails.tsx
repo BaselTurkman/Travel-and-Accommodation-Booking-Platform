@@ -11,8 +11,8 @@ const HotelDetails = () => {
     <PageContainer>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 4 }}>
-          <HotelInformation hotelId={hotelId ?? 0} />
-          <HotelReviews hotelId={hotelId ?? 0} />
+          <HotelInformation hotelId={hotelId} />
+          <HotelReviews hotelId={hotelId} />
         </Grid>
         <Grid size={{ xs: 12, md: 8 }}>
           <AvailableRooms hotelId={hotelId} />

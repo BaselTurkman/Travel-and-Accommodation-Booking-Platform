@@ -1,13 +1,7 @@
 import { FC } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-interface AddToCartButtonProps {
-  onClick: () => void;
-  disabled?: boolean;
-  fullWidth?: boolean;
-  text?: string;
-}
+import { AddToCartButtonProps } from "./types";
 
 const AddToCartButton: FC<AddToCartButtonProps> = ({
   onClick,
