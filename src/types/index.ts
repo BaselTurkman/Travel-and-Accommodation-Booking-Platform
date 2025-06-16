@@ -37,3 +37,8 @@ export interface BookingPayload {
   paymentMethod: string;
 }
 
+export interface Booking extends BookingPayload {
+  bookingStatus: string;
+  confirmationNumber: string;
+}
+
