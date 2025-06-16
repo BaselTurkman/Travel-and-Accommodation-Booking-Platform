@@ -9,7 +9,15 @@ export const bookingSchema: yup.ObjectSchema<BookingPayload> = yup.object({
   bookingDateTime: yup
     .string()
     .required("Booking date and time is required")
-    .typeError("Invalid date format"),
+    .test("is-valid-date", "Invalid date format", (value) => {
+      return !isNaN(Date.parse(value || ""));
+    })
+    .test("is-future-date", "Booking date cannot be in the past", (value) => {
+      if (!value) return false;
+      const now = new Date();
+      const inputDate = new Date(value);
+      return inputDate >= now;
+    }),
   totalCost: yup
     .number()
     .required("Total cost is required")
