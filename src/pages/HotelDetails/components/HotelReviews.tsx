@@ -37,15 +37,23 @@ const HotelReviews: FC<HotelReviewsProps> = ({ hotelId }) => {
       {renderReviews}
       {totalPages > 1 && (
         <Box display="flex" justifyContent="center" gap={2} mt={2}>
-          <Tooltip title="previews" arrow>
-            <Button onClick={handlePrev} disabled={currentPage === 1}>
-              <ArrowBigLeft />
-            </Button>
+          <Tooltip title="previous" arrow>
+            <Box component="span" display="inline-block">
+              <Button onClick={handlePrev} disabled={currentPage === 1}>
+                <ArrowBigLeft />
+              </Button>
+            </Box>
           </Tooltip>
+
           <Tooltip title="next" arrow>
-            <Button onClick={handleNext} disabled={currentPage === totalPages}>
-              <ArrowBigRight />
-            </Button>
+            <Box component="span" display="inline-block">
+              <Button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
+                <ArrowBigRight />
+              </Button>
+            </Box>
           </Tooltip>
         </Box>
       )}
