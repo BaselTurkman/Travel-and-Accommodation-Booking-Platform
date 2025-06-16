@@ -20,6 +20,13 @@ export interface HotelReview {
   description: string;
 }
 
+export interface Gallery {
+  id: number;
+  url: string;
+}
+
 export type GetHotelReviews = Array<HotelReview>;
 
-export type GetAvailableRooms = Array<Room>
+export type GetAvailableRooms = Array<Room>;
+
+export type GetHotelGallery = Array<Gallery>;

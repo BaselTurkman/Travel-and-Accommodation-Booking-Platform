@@ -1,5 +1,10 @@
 import { axiosInstance } from "@/config/axios.config";
-import { GetAvailableRooms, GetHotelReviews, HotelInformation } from "../types";
+import {
+  GetAvailableRooms,
+  GetHotelGallery,
+  GetHotelReviews,
+  HotelInformation,
+} from "../types";
 import dayjs from "dayjs";
 
 export const getHotelDetailsAPI = async (hotelId: string) => {
@@ -18,6 +23,13 @@ export const getAvailableRoomsAPI = async (hotelId: string) => {
   const currentData = dayjs(new Date()).format("YYYY-MM-DD");
   const res = await axiosInstance.get<GetAvailableRooms>(
     `/hotels/${hotelId}/available-rooms?checkInDate=${currentData}&CheckOutDate=${currentData}`
+  );
+  return res.data;
+};
+
+export const getHotelGalleryAPI = async (hotelId: string) => {
+  const res = await axiosInstance.get<GetHotelGallery>(
+    `/hotels/${hotelId}/gallery`
   );
   return res.data;
 };
