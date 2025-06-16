@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   Typography,
-  CircularProgress,
   Divider,
   Stack,
   Chip,
@@ -18,17 +17,14 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 
 import useGetBookingAPI from "./hooks/useGetBookingAPI";
 import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
+import BookingConfirmationSkeleton from "@/components/Skeletons/BookingConfirmationSkeleton/BookingConfirmationSkeleton";
 
 const ConformationBooking: FC = () => {
   const { bookingId } = useParams();
   const { bookingData, isLoading } = useGetBookingAPI(bookingId ?? "0");
 
   if (isLoading || !bookingData) {
-    return (
-      <Box display="flex" justifyContent="center" mt={10}>
-        <CircularProgress />
-      </Box>
-    );
+    return <BookingConfirmationSkeleton />;
   }
 
   return (
