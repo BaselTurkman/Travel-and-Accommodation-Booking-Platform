@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
@@ -29,22 +28,28 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="info">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Booking
           </Typography>
-
+          <Button
+            color="inherit"
+            onClick={() => navigate("/me")}
+            sx={{ fontWeight: "bold", mx: 1 }}
+          >
+            Home
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => navigate("/me/search-result")}
+            sx={{ fontWeight: "bold", mx: 1 }}
+          >
+            Search
+          </Button>
           <Tooltip title="Cart" arrow>
-            <IconButton color="inherit" onClick={() => navigate("/me/checkout")}>
+            <IconButton
+              color="inherit"
+              onClick={() => navigate("/me/checkout")}
+            >
               <Badge badgeContent={cartItemCount} color="error">
                 <ShoppingCartIcon />
               </Badge>
