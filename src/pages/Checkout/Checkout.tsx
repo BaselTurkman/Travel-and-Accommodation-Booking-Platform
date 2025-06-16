@@ -5,10 +5,11 @@ import CartItems from "./components/CartItems";
 import UserInformation from "./components/UserInformation";
 import CheckoutButton from "./components/CheckoutButton";
 import { useAppSelector } from "@/store/store";
-import { selectCartItemsCount } from "@/features/Cart";
+import { selectCartItemsCount, selectTotalPrice } from "@/features/Cart";
 
 const Checkout = () => {
   const cartLength = useAppSelector(selectCartItemsCount);
+  const totalPrice = useAppSelector(selectTotalPrice);
 
   return (
     <PageContainer>
@@ -27,6 +28,21 @@ const Checkout = () => {
         </Box>
         <UserInformation />
         <CartItems />
+        {cartLength !== 0 && (
+          <Box
+            display="flex"
+            justifyContent="flex-start"
+            alignItems="center"
+            gap={1}
+          >
+            <Typography variant="h6" fontWeight="medium">
+              Total Price:
+            </Typography>
+            <Typography variant="h6" color="success.main" fontWeight="bold">
+              ${totalPrice.toFixed(2)}
+            </Typography>
+          </Box>
+        )}
         {cartLength !== 0 && <CheckoutButton />}
       </Stack>
     </PageContainer>
