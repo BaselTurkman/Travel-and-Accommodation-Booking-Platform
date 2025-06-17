@@ -3,13 +3,21 @@ import { GetTrendingDestination } from "../types";
 import { getTrendingDestinationAPI } from "../API";
 
 const useGetTrendingDestinationAPI = () => {
-  const { data: trendingDestinations, isLoading } = useQuery<GetTrendingDestination>(
-    {
-      queryKey: ["trending-destinations"],
-      queryFn: getTrendingDestinationAPI,
-    }
-  );
-  return { trendingDestinations: trendingDestinations ?? [], isLoading };
+  const {
+    data: trendingDestinations,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<GetTrendingDestination>({
+    queryKey: ["trending-destinations"],
+    queryFn: getTrendingDestinationAPI,
+  });
+  return {
+    trendingDestinations: trendingDestinations ?? [],
+    isLoading,
+    isError,
+    refetch,
+  };
 };
 
 export default useGetTrendingDestinationAPI;
