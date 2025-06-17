@@ -4,16 +4,18 @@ import { Provider } from "react-redux";
 import Booking from "./store";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import BookingThemeProvider from "./style/BookingThemeProvider";
 
-//To DO, put all the Providers here including redux and theme
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Provider store={Booking}>
-      <BookingQueryClientProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {children}
-        </LocalizationProvider>
-      </BookingQueryClientProvider>
+      <BookingThemeProvider>
+        <BookingQueryClientProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {children}
+          </LocalizationProvider>
+        </BookingQueryClientProvider>
+      </BookingThemeProvider>
     </Provider>
   );
 };

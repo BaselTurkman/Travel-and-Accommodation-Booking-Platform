@@ -2,7 +2,7 @@ import SearchForm from "@/components/SearchForm";
 import PageContainer from "@/containers/PageContainer";
 import Hotels from "./components/Hotels";
 import FilterAmenities from "./components/FilterAmenities";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Typography, Divider } from "@mui/material";
 import useGetSearchResultAPI from "./hooks/useGetSearchResultAPI";
 import { AmenitiesProvider } from "./context/AmenitiesProvider";
 
@@ -12,6 +12,15 @@ const SearchResult = () => {
   return (
     <AmenitiesProvider>
       <PageContainer>
+        <Box mb={4} textAlign="center">
+          <Typography variant="h4" fontWeight="bold" gutterBottom>
+            Explore Stays Across the City
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Find the perfect hotel tailored to your needs
+          </Typography>
+          <Divider sx={{ mt: 2 }} />
+        </Box>
         <SearchForm isLoading={isLoading} />
         <Grid container spacing={4} alignItems="flex-start">
           <Grid

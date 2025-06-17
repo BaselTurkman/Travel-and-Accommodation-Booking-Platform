@@ -1,7 +1,6 @@
 @import "leaflet/dist/leaflet.css";
 
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+.slick-prev:before,
+.slick-next:before {
+  display: none; /* Hide default chevron */
 }

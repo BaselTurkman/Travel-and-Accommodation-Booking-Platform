@@ -42,6 +42,11 @@ export const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleProfileClick = () => {
+    navigate("/me/profile");
+    handleClose();
+  };
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -72,7 +77,7 @@ export const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
           <Avatar /> Profile
         </MenuItem>
         <Divider />
