@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Booking } from "../types";
+import { Booking } from "@/types";
 import { getBookingAPI } from "../API";
 
 const useGetBookingAPI = (bookingId: string) => {

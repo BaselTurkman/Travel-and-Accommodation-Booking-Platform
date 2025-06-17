@@ -14,10 +14,10 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import HotelIcon from "@mui/icons-material/Hotel";
 import PersonIcon from "@mui/icons-material/Person";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-
 import useGetBookingAPI from "./hooks/useGetBookingAPI";
 import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
 import BookingConfirmationSkeleton from "@/components/Skeletons/BookingConfirmationSkeleton/BookingConfirmationSkeleton";
+import PDFButton from "./components/PDFButton";
 
 const ConformationBooking: FC = () => {
   const { bookingId } = useParams();
@@ -81,7 +81,7 @@ const ConformationBooking: FC = () => {
               <Chip
                 label={bookingData.bookingStatus}
                 color={
-                  bookingData.bookingStatus === "confirmed"
+                  bookingData.bookingStatus === "Confirmed"
                     ? "success"
                     : "warning"
                 }
@@ -90,9 +90,16 @@ const ConformationBooking: FC = () => {
             </Box>
           </Stack>
         </CardContent>
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mt={5}
+        >
           <NavigationButton caption="Home" to="/me" />
+          <PDFButton bookingData={bookingData} />
         </Box>
+        <Stack direction="row" justifyContent="center" mt={2}></Stack>
       </Card>
     </Box>
   );

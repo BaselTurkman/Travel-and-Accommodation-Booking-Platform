@@ -1,4 +1,4 @@
-import { Rating, Typography, Box, Stack } from "@mui/material";
+import { Rating, Typography, Box, Stack, Chip } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HotelIcon from "@mui/icons-material/Hotel";
@@ -7,14 +7,27 @@ import { SearchResult } from "../types";
 import BaseCard from "@/components/BaseCard";
 import HotelAmenities from "@/components/HotelAmenities";
 import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
+import GroupIcon from "@mui/icons-material/Group";
+import ChildCareIcon from "@mui/icons-material/ChildCare";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 
 interface Props {
   hotel: SearchResult;
 }
 
 const Hotel: FC<Props> = ({ hotel }) => {
-  const { hotelName, starRating, discount, roomPhotoUrl, roomPrice, cityName, hotelId } =
-    hotel;
+  const {
+    hotelName,
+    starRating,
+    discount,
+    roomPhotoUrl,
+    roomPrice,
+    cityName,
+    hotelId,
+    numberOfAdults,
+    numberOfChildren,
+    numberOfRooms,
+  } = hotel;
 
   const priceLowerBound = +(roomPrice - roomPrice * (discount / 100)).toFixed(
     2
@@ -25,7 +38,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
     <BaseCard image={roomPhotoUrl} alt={`${hotelName} thumbnail`}>
       <Stack gap={1}>
         <Box display="flex" alignItems="center">
-          <HotelIcon fontSize="small" color="action" sx={{ mr: 1 }} />
+          <MeetingRoomIcon fontSize="small" color="action" sx={{ mr: 1 }} />
           <Typography variant="h6" fontWeight={600} gutterBottom>
             {hotelName}
           </Typography>
@@ -40,6 +53,30 @@ const Hotel: FC<Props> = ({ hotel }) => {
 
         <HotelAmenities amenities={hotel.amenities} />
 
+        <Box display="flex" gap={2} mt={1} mb={2}>
+          <Chip
+            sx={{ px: 0.5, py: 1 }}
+            size="small"
+            icon={<GroupIcon />}
+            label={`Adults: ${numberOfAdults}`}
+            color="primary"
+          />
+          <Chip
+            size="small"
+            sx={{ px: 0.5, py: 1 }}
+            icon={<HotelIcon />}
+            label={`Room${numberOfRooms === 1 ? "" : "s"}: ${numberOfRooms}`}
+            color="success"
+          />
+          <Chip
+            size="small"
+            sx={{ px: 0.5, py: 1 }}
+            icon={<ChildCareIcon />}
+            label={`Children: ${numberOfChildren}`}
+            color="warning"
+          />
+        </Box>
+
         <Box display="flex" alignItems="center">
           <Rating value={starRating} precision={0.5} readOnly size="medium" />
           <Typography variant="body2" color="text.secondary" ml={1}>
@@ -47,7 +84,12 @@ const Hotel: FC<Props> = ({ hotel }) => {
           </Typography>
         </Box>
 
-        <Box display="flex" alignItems="center" gap={1} justifyContent="space-between">
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={1}
+          justifyContent="space-between"
+        >
           <AttachMoneyIcon fontSize="small" color="action" />
           <Typography
             variant="body2"
@@ -65,7 +107,10 @@ const Hotel: FC<Props> = ({ hotel }) => {
           <Typography variant="body2" color="text.secondary">
             / night
           </Typography>
-          <NavigationButton to={`/me/hotel/${hotelId}`} caption="show more details"/>
+          <NavigationButton
+            to={`/me/hotel/${hotelId}`}
+            caption="show more details"
+          />
         </Box>
       </Stack>
     </BaseCard>
