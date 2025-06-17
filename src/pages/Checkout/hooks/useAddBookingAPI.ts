@@ -17,7 +17,7 @@ const useAddBookingAPI = () => {
       });
       //Since the response body doesn't include a booking ID, it's currently hardcoded to 1
       navigate(`/me/confirmation/1`);
-      dispatch(clearCart())
+      setTimeout(() => dispatch(clearCart()), 1000);
     },
   });
   return {
