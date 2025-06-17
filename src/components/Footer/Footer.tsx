@@ -7,10 +7,11 @@ import {
   useTheme,
   Container,
   darken,
+  Tooltip,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const Footer: React.FC = () => {
   const theme = useTheme();
@@ -42,36 +43,44 @@ const Footer: React.FC = () => {
           </Typography>
 
           <Stack direction="row" spacing={1}>
-            <IconButton
-              component="a"
-              href="https://github.com/your-username"
-              target="_blank"
-              rel="noopener"
-              sx={{ color: "#fff" }}
-              aria-label="GitHub"
-            >
-              <GitHubIcon />
-            </IconButton>
-            <IconButton
-              component="a"
-              href="https://linkedin.com/in/your-profile"
-              target="_blank"
-              rel="noopener"
-              sx={{ color: "#fff" }}
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon />
-            </IconButton>
-            <IconButton
-              component="a"
-              href="https://twitter.com/your-handle"
-              target="_blank"
-              rel="noopener"
-              sx={{ color: "#fff" }}
-              aria-label="Twitter"
-            >
-              <TwitterIcon />
-            </IconButton>
+            <Tooltip title="GitHub" arrow>
+              <IconButton
+                component="a"
+                href="https://github.com/BaselTurkman"
+                target="_blank"
+                rel="noopener"
+                sx={{ color: "#fff" }}
+                aria-label="GitHub"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="LinkedIn" arrow>
+              <IconButton
+                component="a"
+                href="https://www.linkedin.com/in/basel-turkman/"
+                target="_blank"
+                rel="noopener"
+                sx={{ color: "#fff" }}
+                aria-label="LinkedIn"
+              >
+                <LinkedInIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Instagram" arrow>
+              <IconButton
+                component="a"
+                href="https://www.instagram.com/basel_turkman/"
+                target="_blank"
+                rel="noopener"
+                sx={{ color: "#fff" }}
+                aria-label="Instagram"
+              >
+                <InstagramIcon />
+              </IconButton>
+            </Tooltip>
           </Stack>
         </Stack>
       </Container>

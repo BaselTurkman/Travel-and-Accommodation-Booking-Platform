@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { selectCartItemsCount } from "@/features/Cart";
 import AccountMenu from "../AccountMenu";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="info">
+      <AppBar position="static" color="info" sx={{ borderRadius: 0 }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography
@@ -32,6 +34,8 @@ export const Navbar = () => {
               color="inherit"
               onClick={() => navigate("/me")}
               sx={{ fontWeight: "bold", mx: 1 }}
+              startIcon={<HomeIcon />}
+              size="large"
             >
               Home
             </Button>
@@ -39,6 +43,8 @@ export const Navbar = () => {
               color="inherit"
               onClick={() => navigate("/me/search-result")}
               sx={{ fontWeight: "bold", mx: 1 }}
+              startIcon={<SearchIcon />}
+              size="large"
             >
               Search
             </Button>
