@@ -12,6 +12,11 @@ export interface SearchResult {
   roomPhotoUrl: string;
   discount: number;
   amenities: Amenity[];
+  numberOfChildren: number;
+  numberOfAdults: number;
+  numberOfRooms: number;
+  checkInDate: string;
+  checkOutDate: string;
 }
 
 export type GetSearchResultAPI = Array<SearchResult>;
