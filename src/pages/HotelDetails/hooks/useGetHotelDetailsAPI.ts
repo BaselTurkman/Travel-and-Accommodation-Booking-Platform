@@ -3,12 +3,17 @@ import { getHotelDetailsAPI } from "../API";
 import { HotelInformation } from "../types";
 
 const useGetHotelDetailsAPI = (hotelId: string) => {
-  const { data: hotelInformation, isLoading } = useQuery<HotelInformation>({
+  const {
+    data: hotelInformation,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<HotelInformation>({
     queryKey: ["hotel-information", hotelId],
     queryFn: () => getHotelDetailsAPI(hotelId),
   });
 
-  return { hotelInformation: hotelInformation , isLoading };
+  return { hotelInformation: hotelInformation, isLoading, isError, refetch };
 };
 
 export default useGetHotelDetailsAPI;
