@@ -9,11 +9,32 @@ import {
 import useGetAmenitiesAPI from "../hooks/useGetAmenitiesAPI";
 import { useAmenities } from "../context/useAmenities";
 import FilterAmenitiesSkeleton from "@/components/Skeletons/FilterAmenitiesSkeleton";
+import { MAX_RETRIES } from "@/constants";
+import { useState } from "react";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 const FilterAmenities = () => {
-  const { amenities, isLoading } = useGetAmenitiesAPI();
+  const { amenities, isLoading, isError, refetch } = useGetAmenitiesAPI();
   const { selectedAmenities, toggleAmenity, selectAll, clearAll } =
     useAmenities();
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
 
   const isAmenitySelected = (name: string) =>
     selectedAmenities.some((a) => a.name === name);

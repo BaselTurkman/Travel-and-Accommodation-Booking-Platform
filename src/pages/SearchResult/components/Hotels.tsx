@@ -6,10 +6,21 @@ import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import Hotel from "./Hotel";
 import NoHotelsFound from "./NoHotelsFound";
 import { useAmenities } from "../context/useAmenities";
+import { useState } from "react";
+import { MAX_RETRIES } from "@/constants";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 const Hotels = () => {
-  const { searchResult, isLoading } = useGetSearchResultAPI();
+  const { searchResult, isLoading, isError, refetch } = useGetSearchResultAPI();
   const { selectedAmenities } = useAmenities();
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
   // Since there isn't much consistency between the IDs, I decided to filter based on the amenity name instead.
   const selectedAmenityNames = selectedAmenities.map((a) => a.name);
 
@@ -29,6 +40,16 @@ const Hotels = () => {
   ));
 
   const isThereHotels = hotelsToRender.length !== 0;
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
 
   return (
     <Box mb={4}>
