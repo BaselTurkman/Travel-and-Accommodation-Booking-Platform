@@ -5,6 +5,7 @@ import {
   ConfirmationBooking,
   Home,
   HotelDetails,
+  Profile,
   SearchResult,
 } from "./imports";
 import AuthRoute from "./AuthRoute";
@@ -35,6 +36,10 @@ const privateRoutes: RouteObject = {
         {
           path: "confirmation/:bookingId",
           element: <ConfirmationBooking />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
       ],
     },
