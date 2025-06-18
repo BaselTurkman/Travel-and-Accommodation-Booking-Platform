@@ -6,9 +6,32 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { settings } from "../constants";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
+import { MAX_RETRIES } from "@/constants";
+import { useState } from "react";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 const RecentVisitedHotels = () => {
-  const { recentVisitedHotels, isLoading } = useGetRecentVisitedHotelAPI();
+  const { recentVisitedHotels, isLoading, isError, refetch } =
+    useGetRecentVisitedHotelAPI();
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
+
   const renderVisitedHotels = recentVisitedHotels.map((hotel) => (
     <Box px={2} my={2} key={hotel.hotelId}>
       <Hotel hotel={hotel} />

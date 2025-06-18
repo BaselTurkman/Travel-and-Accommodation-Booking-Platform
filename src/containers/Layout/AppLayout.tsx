@@ -13,24 +13,15 @@ const AppLayout: FC = () => {
 
   return (
     <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        background: "linear-gradient(to right, #f0f4f8,rgb(233, 238, 248))", // or your desired gradient
+        background: "linear-gradient(to right, #f0f4f8,rgb(233, 238, 248))",
       }}
     >
       <Navbar />
-
-      <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          px: 3,
-          py: 4,
-        }}
-      >
+      <Box display="flex" flex={1} flexDirection="column" px={3} py={4}>
         <Outlet />
       </Box>
       <Footer />

@@ -6,9 +6,32 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { settings } from "../constants";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
+import { useState } from "react";
+import { MAX_RETRIES } from "@/constants";
 
 const FeaturedDeals = () => {
-  const { featuredDeals, isLoading } = useGetFeaturedDealAPI();
+  const { featuredDeals, isLoading, isError, refetch } =
+    useGetFeaturedDealAPI();
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
+
   const renderFeaturedDeals = featuredDeals.map((deal) => (
     <Box px={2} my={2} key={deal.hotelId}>
       <Deal deal={deal} />

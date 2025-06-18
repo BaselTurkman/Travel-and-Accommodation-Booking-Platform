@@ -7,12 +7,17 @@ import { selectSearchQuery } from "@/features/SearchQuery";
 const useGetSearchResultAPI = () => {
   const searchQuery = useAppSelector(selectSearchQuery);
 
-  const { data: searchResult, isLoading } = useQuery<GetSearchResultAPI>({
-    queryKey: ["search-result", searchQuery], 
+  const {
+    data: searchResult,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<GetSearchResultAPI>({
+    queryKey: ["search-result", searchQuery],
     queryFn: () => getSearchResultAPI(searchQuery),
   });
 
-  return { searchResult: searchResult ?? [], isLoading };
+  return { searchResult: searchResult ?? [], isLoading, isError, refetch };
 };
 
 export default useGetSearchResultAPI;

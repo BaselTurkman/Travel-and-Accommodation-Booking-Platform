@@ -3,15 +3,26 @@ import useGetHotelGalleryAPI from "../hooks/useGetHotelGalleryAPI";
 import MediaCardSkeleton from "@/components/Skeletons/MediaCardSkeleton";
 import { Box, Grid, Modal, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { MAX_RETRIES } from "@/constants";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 interface HotelGalleryProps {
   hotelId: string;
 }
 
 const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
-  const { hotelGallery, isLoading } = useGetHotelGalleryAPI(hotelId);
+  const { hotelGallery, isLoading, isError, refetch } =
+    useGetHotelGalleryAPI(hotelId);
   const [open, setOpen] = useState(false);
   const [activeImg, setActiveImg] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
 
   const handleOpen = (url: string) => {
     setActiveImg(url);
@@ -22,6 +33,16 @@ const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
     setOpen(false);
     setActiveImg(null);
   };
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
 
   const renderHotelGallery = hotelGallery.map((photo) => (
     <Grid key={photo.url} size={{ xs: 12, sm: 6, md: 4 }}>

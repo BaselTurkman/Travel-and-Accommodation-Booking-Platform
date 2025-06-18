@@ -4,6 +4,8 @@ import { Box, Button, Stack, Tooltip } from "@mui/material";
 import Review from "./Review";
 import ReviewSkeleton from "@/components/Skeletons/ReviewSkeleton";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { MAX_RETRIES } from "@/constants";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 interface HotelReviewsProps {
   hotelId: string;
@@ -12,10 +14,29 @@ interface HotelReviewsProps {
 const REVIEWS_PER_PAGE = 3;
 
 const HotelReviews: FC<HotelReviewsProps> = ({ hotelId }) => {
-  const { hotelReviews, isLoading } = useGetHotelReviewsAPI(hotelId);
+  const { hotelReviews, isLoading, isError, refetch } =
+    useGetHotelReviewsAPI(hotelId);
   const [currentPage, setCurrentPage] = useState(1);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
 
   if (isLoading) return <ReviewSkeleton />;
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
 
   const totalPages = Math.ceil(hotelReviews.length / REVIEWS_PER_PAGE);
   const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE;
