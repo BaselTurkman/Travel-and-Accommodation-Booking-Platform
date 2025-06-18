@@ -20,12 +20,15 @@ const useLoginAPI = () => {
       showSuccessSnackbar({ message: "Login Successful" });
       setSession(authentication);
       const payload = jwtDecode<SessionData>(authentication);
-      dispatch(login(payload))
+      dispatch(login(payload));
       axiosInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${authentication}`;
-      //for now
-      navigate("/me");
+      if (payload.userType === "User") {
+        navigate("/me");
+      } else {
+        navigate("/me/cities");
+      }
     },
   });
 
