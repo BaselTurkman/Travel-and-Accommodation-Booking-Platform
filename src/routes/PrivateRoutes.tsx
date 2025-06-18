@@ -2,6 +2,7 @@ import AppLayout from "@/containers/Layout";
 import { RouteObject } from "react-router-dom";
 import {
   Checkout,
+  Cities,
   ConfirmationBooking,
   Home,
   HotelDetails,
@@ -40,6 +41,10 @@ const privateRoutes: RouteObject = {
         {
           path: "profile",
           element: <Profile />,
+        },
+        {
+          path: "cities",
+          element: <Cities />,
         },
       ],
     },
