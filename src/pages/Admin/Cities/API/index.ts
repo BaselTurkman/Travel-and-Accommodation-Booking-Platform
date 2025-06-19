@@ -17,6 +17,10 @@ export const editCityAPI = async (city: City) => {
 };
 
 export const addCityAPI = async (city: CityPayload) => {
-  const res = await axiosInstance.post<City>(`/cities`, city)
-  return res.data
-}
+  const payload = {
+    name: city.name,
+    description: city.description,
+  };
+  const res = await axiosInstance.post<CityPayload>(`/cities`, payload);
+  return res.data;
+};

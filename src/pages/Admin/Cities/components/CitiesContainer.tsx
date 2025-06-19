@@ -2,7 +2,7 @@ import { useGetCitiesAPI } from "../hooks/useGetCitiesAPI";
 import { Grid } from "@mui/material";
 import CityCard from "./CityCard";
 import CityCardSkeleton from "@/components/Skeletons/CityCardSkeleton/CityCardSkeleton";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
 import isEqual from "fast-deep-equal";
@@ -10,9 +10,14 @@ import CityFormDialog from "./CityFormDialog";
 import { City } from "../types";
 import useEditCityAPI from "../hooks/useEditCityAPI";
 import { useSnackBar } from "@/hooks/useSnackBar";
+import { cardColors } from "../constants";
+import NoItemFound from "@/components/NoItemFound";
 
+interface CitiesContainerProps {
+  searchQuery: string;
+}
 
-const CitiesContainer = () => {
+const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
   const { cities, isLoading, isError, refetch } = useGetCitiesAPI();
   const { editCity, isPending } = useEditCityAPI();
   const [retryCount, setRetryCount] = useState(0);
@@ -56,16 +61,39 @@ const CitiesContainer = () => {
     );
   }
 
-  const renderCities = cities.map((city) => (
+  const noCities = !isLoading && cities.length === 0;
+
+  const filteredCities = !searchQuery
+    ? cities
+    : cities.filter((city) =>
+        city.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+  const noSearchResults =
+    !isLoading && cities.length > 0 && filteredCities.length === 0;
+
+  const renderCities = filteredCities.map((city, index) => (
     <Grid size={{ xs: 12, sm: 6 }} key={city.id + "-" + city.name}>
-      <CityCard city={city} onEdit={handleEdit} />
+      <CityCard
+        city={city}
+        onEdit={handleEdit}
+        cardColor={cardColors[index % cardColors.length]}
+      />
     </Grid>
   ));
 
   return (
     <>
       <Grid container spacing={2}>
-        {isLoading ? <CityCardSkeleton /> : renderCities}
+        {isLoading ? (
+          <CityCardSkeleton />
+        ) : noCities ? (
+          <NoItemFound title="No cities available. Please add one." />
+        ) : noSearchResults ? (
+          <NoItemFound title="No city matches your search." />
+        ) : (
+          renderCities
+        )}
       </Grid>
 
       {selectedCity && (

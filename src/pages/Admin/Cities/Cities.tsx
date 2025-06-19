@@ -4,8 +4,12 @@ import CitiesContainer from "./components/CitiesContainer";
 import SearchCity from "./components/SearchCity";
 import AddCityButton from "./components/AddCityButton";
 
+import { useState } from "react";
+// ...
+
 const Cities = () => {
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <PageContainer>
       <Stack gap={3}>
@@ -13,10 +17,10 @@ const Cities = () => {
           <Typography variant="h4" fontWeight="bold">
             Cities
           </Typography>
-          <SearchCity />
+          <SearchCity onSearch={setSearchQuery} />
           <AddCityButton />
         </Box>
-        <CitiesContainer />
+        <CitiesContainer searchQuery={searchQuery} />
       </Stack>
     </PageContainer>
   );

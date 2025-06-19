@@ -4,11 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import Hotel from "./Hotel";
-import NoHotelsFound from "./NoHotelsFound";
 import { useAmenities } from "../context/useAmenities";
 import { useState } from "react";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import NoItemFound from "@/components/NoItemFound";
 
 const Hotels = () => {
   const { searchResult, isLoading, isError, refetch } = useGetSearchResultAPI();
@@ -57,7 +57,7 @@ const Hotels = () => {
         {isLoading ? (
           <BaseCardSkeleton />
         ) : !isThereHotels ? (
-          <NoHotelsFound />
+          <NoItemFound title="No hotels found" />
         ) : (
           renderSearchResult
         )}

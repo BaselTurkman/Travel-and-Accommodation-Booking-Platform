@@ -13,9 +13,10 @@ import useDeleteCityAPI from "../hooks/useDeleteCityAPI";
 interface CityProps {
   city: City;
   onEdit: (city: City) => void;
+  cardColor?: string;
 }
 
-const CityCard: FC<CityProps> = ({ city, onEdit }) => {
+const CityCard: FC<CityProps> = ({ city, onEdit, cardColor }) => {
   const { name, description, id } = city;
   const { showConfirmationDialog } = useConfirmationDialog();
   const { deleteCity, isPending } = useDeleteCityAPI(id);
@@ -29,7 +30,7 @@ const CityCard: FC<CityProps> = ({ city, onEdit }) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ bgcolor: cardColor }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
