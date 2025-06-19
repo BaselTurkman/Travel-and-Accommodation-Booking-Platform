@@ -12,12 +12,14 @@ import useDeleteCityAPI from "../hooks/useDeleteCityAPI";
 
 interface CityProps {
   city: City;
+  onEdit: (city: City) => void;
 }
 
-const CityCard: FC<CityProps> = ({ city }) => {
+const CityCard: FC<CityProps> = ({ city, onEdit }) => {
   const { name, description, id } = city;
   const { showConfirmationDialog } = useConfirmationDialog();
   const { deleteCity, isPending } = useDeleteCityAPI(id);
+
   const handleDelete = () => {
     showConfirmationDialog({
       message: "Are you sure you want to delete this city?",
@@ -25,6 +27,7 @@ const CityCard: FC<CityProps> = ({ city }) => {
       onConfirm: deleteCity,
     });
   };
+
   return (
     <Card>
       <CardContent>
@@ -37,14 +40,14 @@ const CityCard: FC<CityProps> = ({ city }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="large" color="primary">
+        <Button size="large" color="primary" onClick={() => onEdit(city)}>
           Edit
         </Button>
         <Button
           size="large"
           color="error"
           onClick={handleDelete}
-          loading={isPending}
+          disabled={isPending}
         >
           Delete
         </Button>

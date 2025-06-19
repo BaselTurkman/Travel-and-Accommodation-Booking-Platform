@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/config/axios.config";
-import { GetCities } from "../types";
+import { City, GetCities } from "../types";
 
 export const getCitiesAPI = async () => {
   const res = await axiosInstance.get<GetCities>("/cities");
@@ -7,6 +7,11 @@ export const getCitiesAPI = async () => {
 };
 
 export const deleteCityAPI = async (cityId: number) => {
-  const res = await axiosInstance.delete(`/cities/${cityId}`)
-  return res.data
-}
+  const res = await axiosInstance.delete(`/cities/${cityId}`);
+  return res.data;
+};
+
+export const editCityAPI = async (city: City) => {
+  const res = await axiosInstance.put<City>(`/cities/${city.id}`, city);
+  return res.data;
+};
