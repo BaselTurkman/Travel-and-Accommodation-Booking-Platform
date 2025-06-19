@@ -4,7 +4,7 @@ import { HotelAmenitiesProps } from "./types";
 import { bgColors } from "./constants";
 
 const HotelAmenities: FC<HotelAmenitiesProps> = ({ amenities }) => {
-  if (!amenities.length) return null;
+  if (!amenities) return null;
 
   return (
     <Box my={1}>

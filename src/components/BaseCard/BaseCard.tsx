@@ -15,7 +15,6 @@ const BaseCard: FC<BaseCardProps> = ({
       sx={{
         borderRadius: 3,
         overflow: "hidden",
-        height: "100%",
         display: "flex",
         flexDirection: "column",
         transition: "transform 0.3s",
