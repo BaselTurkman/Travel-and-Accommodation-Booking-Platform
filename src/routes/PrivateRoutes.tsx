@@ -6,6 +6,7 @@ import {
   ConfirmationBooking,
   Home,
   HotelDetails,
+  Hotels,
   Profile,
   SearchResult,
 } from "./imports";
@@ -45,6 +46,10 @@ const privateRoutes: RouteObject = {
         {
           path: "cities",
           element: <Cities />,
+        },
+        {
+          path: "hotels",
+          element: <Hotels />,
         },
       ],
     },
