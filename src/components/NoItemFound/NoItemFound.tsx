@@ -1,6 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-import noResult from "@/assets/Images/noResult.png"
-const NoHotelsFound = () => {
+import noResult from "@/assets/Images/noResult.png";
+import { FC } from "react";
+import { NoItemFoundProps } from "./types";
+const NoItemFound: FC<NoItemFoundProps> = ({ title }) => {
   return (
     <Grid size={{ xs: 12 }}>
       <Box
@@ -26,7 +28,7 @@ const NoHotelsFound = () => {
           }}
         />
         <Typography variant="h6" gutterBottom>
-          No hotels found
+          {title}
         </Typography>
         <Typography variant="body2">
           Try adjusting your search criteria.
@@ -36,4 +38,4 @@ const NoHotelsFound = () => {
   );
 };
 
-export default NoHotelsFound;
+export default NoItemFound;
