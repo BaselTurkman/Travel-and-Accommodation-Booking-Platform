@@ -10,12 +10,14 @@ import { useSnackBar } from "@/hooks/useSnackBar";
 import { HotelRoomProps } from "./types";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart, removeFromCart, selectIsRoomInCart } from "@/features/Cart";
+import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 
 const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
   const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
   const dispatch = useAppDispatch();
   const isRoomInCart = useAppSelector(selectIsRoomInCart(room.roomId));
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { showConfirmationDialog } = useConfirmationDialog();
   const {
     roomType,
     roomPhotoUrl,
@@ -25,18 +27,32 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
     capacityOfAdults,
   } = room;
 
-  const handleAddToCart = () => {
+  const handleDelete = () => {
+    dispatch(removeFromCart({ roomNumber: room.roomNumber }));
+    showWarningSnackbar({ message: "Room removed from your cart." });
+  };
+
+  const handleAdd = () => {
     setIsButtonDisabled(true);
+    dispatch(addToCart({ room }));
+    showSuccessSnackbar({ message: "Room added to cart successfully." });
+    setTimeout(() => setIsButtonDisabled(false), 1500);
+  };
+
+  const handleCartAction = () => {
     if (isRoomInCart) {
-      dispatch(removeFromCart({ roomNumber: room.roomNumber }));
-      showWarningSnackbar({ message: "Room removed from your cart." });
+      showConfirmationDialog({
+        title: "Remove Room from Cart",
+        message: "Are you sure you want to remove this room from your cart?",
+        onConfirm: () => {
+          setIsButtonDisabled(true);
+          handleDelete();
+          setTimeout(() => setIsButtonDisabled(false), 1500);
+        },
+      });
     } else {
-      dispatch(addToCart({ room }));
-      showSuccessSnackbar({ message: "Room added to cart successfully." });
+      handleAdd();
     }
-    setTimeout(() => {
-      setIsButtonDisabled(false);
-    }, 1500);
   };
 
   return (
@@ -86,7 +102,7 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
         </Stack>
         <Box display="flex" justifyContent="center" alignItems="center">
           <AddToCartButton
-            onClick={handleAddToCart}
+            onClick={handleCartAction}
             disabled={isButtonDisabled}
             text={isRoomInCart ? "Remove from Cart" : "Add to Cart"}
             color={isRoomInCart ? "error" : "primary"}
