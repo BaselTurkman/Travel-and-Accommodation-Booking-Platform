@@ -4,4 +4,6 @@ export interface City {
   description: string;
 }
 
+export type CityPayload = Omit<City, "id">;
+
 export type GetCities = Array<City>;

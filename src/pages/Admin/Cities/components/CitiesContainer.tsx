@@ -5,10 +5,12 @@ import CityCardSkeleton from "@/components/Skeletons/CityCardSkeleton/CityCardSk
 import { useState } from "react";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
-
-import CityFormDialog from "./CityFormDialog"; // Import the form dialog
+import isEqual from "fast-deep-equal";
+import CityFormDialog from "./CityFormDialog";
 import { City } from "../types";
 import useEditCityAPI from "../hooks/useEditCityAPI";
+import { useSnackBar } from "@/hooks/useSnackBar";
+
 
 const CitiesContainer = () => {
   const { cities, isLoading, isError, refetch } = useGetCitiesAPI();
@@ -16,6 +18,7 @@ const CitiesContainer = () => {
   const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const { showWarningSnackbar } = useSnackBar();
 
   const handleRetry = () => {
     if (retryCount < MAX_RETRIES) {
@@ -35,8 +38,11 @@ const CitiesContainer = () => {
   };
 
   const handleSubmit = async (values: City) => {
-    editCity(values);
-    console.log("Form submitted with values", values);
+    if (isEqual(values, selectedCity)) {
+      showWarningSnackbar({ message: "No changes were made." });
+    } else {
+      editCity(values);
+    }
     handleCloseDialog();
   };
 

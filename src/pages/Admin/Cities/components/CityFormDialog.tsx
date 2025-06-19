@@ -40,6 +40,8 @@ const CityFormDialog = ({
         <TextField
           name="description"
           aria-label="Please Enter the City Description"
+          rows={4}
+          multiline
         />
       </Stack>
     </GenericFormDialog>
