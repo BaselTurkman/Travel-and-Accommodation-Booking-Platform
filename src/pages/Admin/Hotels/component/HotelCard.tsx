@@ -13,15 +13,16 @@ import { FC } from "react";
 import BaseCard from "@/components/BaseCard";
 import HotelAmenities from "@/components/HotelAmenities";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import { Hotel } from "../types";
+import { Hotel, HotelPayload } from "../types";
 import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 import useDeleteHotelAPI from "../hooks/useDeleteHotelAPI";
 
 interface Props {
   hotel: Hotel;
+  onEdit: (hotel: HotelPayload) => void;
 }
 
-const HotelCard: FC<Props> = ({ hotel }) => {
+const HotelCard: FC<Props> = ({ hotel, onEdit }) => {
   const { showConfirmationDialog } = useConfirmationDialog();
   const {
     hotelName,
@@ -33,6 +34,9 @@ const HotelCard: FC<Props> = ({ hotel }) => {
     location,
     description,
     id,
+    latitude,
+    longitude,
+
   } = hotel;
   const { deleteHotel, isPending } = useDeleteHotelAPI(id);
 
@@ -43,7 +47,7 @@ const HotelCard: FC<Props> = ({ hotel }) => {
       onConfirm: deleteHotel,
     });
   };
-
+  const hotelPayload = {id,  hotelName, starRating, latitude, longitude,description, hotelType }
   return (
     <BaseCard image={imageUrl} alt={`${hotelName} thumbnail`}>
       <Stack gap={1} minHeight="100%">
@@ -115,7 +119,7 @@ const HotelCard: FC<Props> = ({ hotel }) => {
           >
             Delete
           </Button>
-          <Button variant="text" size="large" color="warning">
+          <Button variant="text" size="large" color="warning" onClick={() => onEdit(hotelPayload)}>
             Edit
           </Button>
         </Box>
