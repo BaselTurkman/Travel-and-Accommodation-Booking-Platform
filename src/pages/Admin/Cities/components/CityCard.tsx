@@ -7,13 +7,24 @@ import {
 } from "@mui/material";
 import { City } from "../types";
 import { FC } from "react";
+import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
+import useDeleteCityAPI from "../hooks/useDeleteCityAPI";
 
 interface CityProps {
   city: City;
 }
 
 const CityCard: FC<CityProps> = ({ city }) => {
-  const { name, description } = city;
+  const { name, description, id } = city;
+  const { showConfirmationDialog } = useConfirmationDialog();
+  const { deleteCity, isPending } = useDeleteCityAPI(id);
+  const handleDelete = () => {
+    showConfirmationDialog({
+      message: "Are you sure you want to delete this city?",
+      title: "Delete City",
+      onConfirm: deleteCity,
+    });
+  };
   return (
     <Card>
       <CardContent>
@@ -29,7 +40,12 @@ const CityCard: FC<CityProps> = ({ city }) => {
         <Button size="large" color="primary">
           Edit
         </Button>
-        <Button size="large" color="error">
+        <Button
+          size="large"
+          color="error"
+          onClick={handleDelete}
+          loading={isPending}
+        >
           Delete
         </Button>
       </CardActions>
