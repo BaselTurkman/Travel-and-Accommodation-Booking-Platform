@@ -3,9 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import CitiesContainer from "./components/CitiesContainer";
 import SearchCity from "./components/SearchCity";
 import AddCityButton from "./components/AddCityButton";
-
 import { useState } from "react";
-// ...
 
 const Cities = () => {
   const [searchQuery, setSearchQuery] = useState("");
