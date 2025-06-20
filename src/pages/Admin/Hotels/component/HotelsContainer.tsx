@@ -7,25 +7,29 @@ import HotelFormDialog from "./HotelFormDialog";
 import useEditHotelAPI from "../hooks/useEditHotelAPI";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
-
+import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
+import { MAX_RETRIES } from "@/constants";
+import RequestErrorFallback from "@/components/RequestErrorFallback";
 
 const HotelsContainer = () => {
-  const { hotels, isLoading } = useGetHotelsAPI();
-  const {editHotel, isPending} = useEditHotelAPI();
+  const { hotels, isLoading, isError, refetch } = useGetHotelsAPI();
+  const { editHotel, isPending } = useEditHotelAPI();
+  const { showWarningSnackbar } = useSnackBar();
+  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedHotel, setSelectedHotel] = useState<HotelPayload | null>(null);
-  const {showWarningSnackbar} = useSnackBar()
 
   const handleCloseDialog = () => {
     setSelectedHotel(null);
     setOpenDialog(false);
   };
-    const handleEdit = (hotel: HotelPayload) => {
+
+  const handleEdit = (hotel: HotelPayload) => {
     setSelectedHotel(hotel);
     setOpenDialog(true);
   };
 
-   const handleSubmit = async (values: HotelPayload) => {
+  const handleSubmit = async (values: HotelPayload) => {
     if (isEqual(values, selectedHotel)) {
       showWarningSnackbar({ message: "No changes were made." });
     } else {
@@ -33,6 +37,24 @@ const HotelsContainer = () => {
     }
     handleCloseDialog();
   };
+
+  const handleRetry = () => {
+    if (retryCount < MAX_RETRIES) {
+      setRetryCount((prev) => prev + 1);
+      refetch();
+    }
+  };
+
+  if (isError) {
+    return (
+      <RequestErrorFallback
+        onRetry={handleRetry}
+        retryCount={retryCount}
+        maxRetries={MAX_RETRIES}
+      />
+    );
+  }
+  
   const renderHotels = hotels.map((hotel) => (
     <Grid
       size={{ xs: 12, sm: 6, md: 4 }}
@@ -41,11 +63,11 @@ const HotelsContainer = () => {
       <HotelCard hotel={hotel} onEdit={handleEdit} />
     </Grid>
   ));
-  if (isLoading) return <div>isLoading...</div>;
+
   return (
     <>
       <Grid container spacing={2}>
-        {renderHotels}
+        {isLoading ? <BaseCardSkeleton /> : renderHotels}
       </Grid>
       {selectedHotel && (
         <HotelFormDialog
