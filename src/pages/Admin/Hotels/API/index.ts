@@ -12,6 +12,14 @@ export const deleteHotelAPI = async (hotelId: number) => {
 };
 
 export const editHotelAPI = async (hotel: HotelPayload) => {
-  const res = await axiosInstance.put<HotelPayload>(`/hotels/${hotel.id}`, hotel);
+  const res = await axiosInstance.put<HotelPayload>(
+    `/hotels/${hotel.id}`,
+    hotel
+  );
+  return res.data;
+};
+
+export const addHotelAPI = async (hotel: HotelPayload) => {
+  const res = await axiosInstance.post("/hotels", hotel);
   return res.data;
 };

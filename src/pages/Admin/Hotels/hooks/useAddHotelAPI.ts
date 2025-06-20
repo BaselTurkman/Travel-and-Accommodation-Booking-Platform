@@ -1,24 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editHotelAPI } from "../API";
+import { addHotelAPI } from "../API";
 import { HotelPayload } from "../types";
 import { useSnackBar } from "@/hooks/useSnackBar";
 
-const useEditHotelAPI = () => {
+const useAddHotelAPI = () => {
   const { showSuccessSnackbar } = useSnackBar();
   const queryClient = useQueryClient();
 
-  const { mutate: editHotel, isPending } = useMutation({
-    mutationFn: (hotel: HotelPayload) => editHotelAPI(hotel),
+  const { mutate: addHotel, isPending } = useMutation({
+    mutationFn: (hotel: HotelPayload) => addHotelAPI(hotel),
     onSuccess: () => {
-      showSuccessSnackbar({ message: "Hotel Edited Successfully." });
+      showSuccessSnackbar({ message: "Hotel Added Successfully." });
       queryClient.invalidateQueries({ queryKey: ["hotels"] });
     },
   });
 
   return {
-    editHotel,
+    addHotel,
     isPending,
   };
 };
 
-export default useEditHotelAPI;
+export default useAddHotelAPI;

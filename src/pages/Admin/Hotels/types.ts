@@ -10,7 +10,7 @@ export interface Hotel extends HotelInformation {
 export type GetHotels = Array<Hotel>;
 
 export interface HotelPayload {
-  id: number
+  id?: number
   hotelName: string;
   hotelType: string;
   latitude: number;

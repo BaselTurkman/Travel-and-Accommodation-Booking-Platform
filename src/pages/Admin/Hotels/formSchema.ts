@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { HotelPayload } from "./types";
 
 export const validationSchema: yup.ObjectSchema<HotelPayload> = yup.object({
-  id: yup.number().typeError("ID must be a number").required("ID is required"),
+  id: yup.number(),
   hotelName: yup
     .string()
     .required("Hotel name is required")
