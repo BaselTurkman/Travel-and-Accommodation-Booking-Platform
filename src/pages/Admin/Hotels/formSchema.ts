@@ -10,6 +10,11 @@ export const validationSchema: yup.ObjectSchema<HotelPayload> = yup.object({
 
   hotelType: yup.string().required("Hotel type is required"),
 
+  location: yup
+    .string()
+    .required("location name is required")
+    .min(2, "location must be at least 2 characters"),
+
   latitude: yup
     .number()
     .required("Latitude is required")
