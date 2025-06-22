@@ -31,7 +31,7 @@ function AddHotelButton() {
         endIcon={<AddIcon />}
         onClick={() => setOpen(true)}
       >
-        Add City
+        Add Hotel
       </Button>
       <HotelFormDialog
         open={open}

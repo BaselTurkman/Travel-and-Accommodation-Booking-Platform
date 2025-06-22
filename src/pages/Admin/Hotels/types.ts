@@ -23,4 +23,5 @@ export interface HotelPayload {
   longitude: number;
   starRating: number;
   description: string;
+  location: string;
 }
