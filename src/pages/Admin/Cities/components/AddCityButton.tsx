@@ -36,7 +36,7 @@ function AddCityButton() {
         initialValues={initialValues}
         onSubmit={handleAdd}
         isPending={isPending}
-        title="Make a Booking"
+        title="Add City"
         formType="add"
       />
     </Box>

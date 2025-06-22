@@ -96,7 +96,7 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
           initialValues={selectedHotel}
           onSubmit={handleSubmit}
           isPending={isPending}
-          title="Edit City"
+          title="Edit Hotel"
           formType="edit"
         />
       )}
