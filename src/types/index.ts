@@ -54,3 +54,14 @@ export interface HotelInformation {
   imageUrl: string;
   cityId: number;
 }
+
+export interface PaginationProps {
+  page: number;
+  pageSize: number;
+}
+
+export interface SearchParams {
+  pageNumber: number;
+  pageSize: number;
+  searchQuery: string;
+}

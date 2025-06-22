@@ -9,6 +9,12 @@ export interface Hotel extends HotelInformation {
 
 export type GetHotels = Array<Hotel>;
 
+export interface HotelResponse {
+  hotels: GetHotels;
+  totalCount: number
+  totalPages: number
+}
+
 export interface HotelPayload {
   id?: number
   hotelName: string;
