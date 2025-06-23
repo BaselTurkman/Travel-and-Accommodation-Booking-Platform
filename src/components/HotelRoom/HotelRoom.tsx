@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Typography, Box, Stack, Divider, Chip } from "@mui/material";
+import { Typography, Box, Stack, Divider, Chip, Button } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import GroupIcon from "@mui/icons-material/Group";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
@@ -11,8 +11,10 @@ import { HotelRoomProps } from "./types";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart, removeFromCart, selectIsRoomInCart } from "@/features/Cart";
 import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
+import useDeleteHotelRoomAPI from "./hooks/useDeleteHotelRoomAPI";
+import { HotelRoomPayload } from "@/types";
 
-const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
+const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
   const dispatch = useAppDispatch();
   const isRoomInCart = useAppSelector(selectIsRoomInCart(room.roomId));
@@ -25,7 +27,19 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
     price,
     capacityOfChildren,
     capacityOfAdults,
+    roomNumber,
+    roomId,
   } = room;
+  const { deleteHotelRoom, isPending } = useDeleteHotelRoomAPI(roomId);
+
+  const roomPayload: HotelRoomPayload = {
+    price,
+    roomNumber,
+    roomId,
+    roomType,
+    capacityOfAdults,
+    capacityOfChildren,
+  };
 
   const handleDelete = () => {
     dispatch(removeFromCart({ roomNumber: room.roomNumber }));
@@ -54,6 +68,48 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
       handleAdd();
     }
   };
+
+  const handleRoomDelete = () => {
+    showConfirmationDialog({
+      title: "Delete Room",
+      message: "Are you sure you want to delete this room?",
+      onConfirm: () => deleteHotelRoom(),
+    });
+  };
+
+  const renderCartButton = (
+    <Box display="flex" justifyContent="center" alignItems="center">
+      <AddToCartButton
+        onClick={handleCartAction}
+        disabled={isButtonDisabled}
+        text={isRoomInCart ? "Remove from Cart" : "Add to Cart"}
+        color={isRoomInCart ? "error" : "primary"}
+        variant={isRoomInCart ? "contained" : "outlined"}
+      />
+    </Box>
+  );
+
+  const renderActionButtons = (
+    <Box display="flex" justifyContent="space-between">
+      <Button
+        variant="text"
+        color="warning"
+        onClick={() => onEdit?.(roomPayload)}
+        size="large"
+      >
+        Edit
+      </Button>
+      <Button
+        variant="text"
+        color="error"
+        loading={isPending}
+        onClick={handleRoomDelete}
+        size="large"
+      >
+        Delete
+      </Button>
+    </Box>
+  );
 
   return (
     <BaseCard image={roomPhotoUrl} alt={`${roomType} thumbnail`}>
@@ -100,15 +156,8 @@ const HotelRoom: FC<HotelRoomProps> = ({ room }) => {
           <HotelAmenities amenities={roomAmenities} />
           <Divider sx={{ mb: 1 }} />
         </Stack>
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <AddToCartButton
-            onClick={handleCartAction}
-            disabled={isButtonDisabled}
-            text={isRoomInCart ? "Remove from Cart" : "Add to Cart"}
-            color={isRoomInCart ? "error" : "primary"}
-            variant={isRoomInCart ? "contained" : "outlined"}
-          />
-        </Box>
+
+        {actionButtons ? renderActionButtons : renderCartButton}
       </Stack>
     </BaseCard>
   );
