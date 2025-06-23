@@ -9,6 +9,7 @@ const PageLimitSelector = ({ value, onChange }: PageLimitSelectorProps) => {
     <Autocomplete
       options={options}
       value={selected}
+      size="small"
       onChange={(_, newValue) => {
         if (newValue) {
           onChange(newValue.value);
