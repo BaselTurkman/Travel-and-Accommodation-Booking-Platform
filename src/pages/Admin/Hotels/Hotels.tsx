@@ -1,5 +1,5 @@
 import PageContainer from "@/containers/PageContainer";
-import { Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import AddHotelButton from "./component/AddHotelButton";
 import { useState } from "react";
 import SearchHotel from "./component/SearchHotel";
@@ -71,6 +71,7 @@ const Hotels = () => {
             <AddHotelButton />
           </Stack>
         </Stack>
+        <Divider />
         <HotelsContainer
           searchParams={searchParams}
           onPageChange={handlePageChange}

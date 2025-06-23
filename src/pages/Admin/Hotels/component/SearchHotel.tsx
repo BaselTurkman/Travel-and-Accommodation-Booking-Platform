@@ -14,7 +14,7 @@ const SearchHotel = ({ onSearch }: SearchHotelProps) => {
 
   const handleReset = () => {
     setInput("");
-    onSearch(""); // Reset to show all cities
+    onSearch(""); 
   };
 
   return (

@@ -62,7 +62,6 @@ const HotelFormDialog = ({
             </Grid>
           </Grid>
         </fieldset>
-
         <fieldset
           style={{ border: "1px solid #ccc", borderRadius: 8, padding: "1rem" }}
         >
@@ -83,7 +82,6 @@ const HotelFormDialog = ({
             </Grid>
           </Grid>
         </fieldset>
-
         <fieldset
           style={{ border: "1px solid #ccc", borderRadius: 8, padding: "1rem" }}
         >
