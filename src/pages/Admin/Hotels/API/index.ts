@@ -4,9 +4,7 @@ import { axiosInstance } from "@/config/axios.config";
 import { buildHotelSearchURL } from "../utils/buildHotelSearchURL";
 
 export const getHotelsAPI = async (searchParams: SearchParams) => {
-  const url = buildHotelSearchURL(searchParams);
-  console.log(url);
-  
+  const url = buildHotelSearchURL(searchParams);  
   const res = await axiosInstance.get<HotelResponse>(url);
   return res.data;
 };

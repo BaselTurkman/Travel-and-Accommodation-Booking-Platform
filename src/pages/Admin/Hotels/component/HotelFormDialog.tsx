@@ -4,6 +4,7 @@ import TextField from "@/components/Fields/TextField";
 import GenericFormDialog from "@/components/GenericFormDialog";
 import { validationSchema } from "../formSchema";
 import { HotelPayload } from "../types";
+import { FC } from "react";
 
 interface Props {
   open: boolean;
@@ -18,7 +19,7 @@ interface Props {
   formType?: string;
 }
 
-const HotelFormDialog = ({
+const HotelFormDialog: FC<Props> = ({
   open,
   handleClose,
   initialValues,
@@ -26,7 +27,7 @@ const HotelFormDialog = ({
   isPending,
   title,
   formType = "add",
-}: Props) => {
+}) => {
   return (
     <GenericFormDialog<HotelPayload>
       open={open}
