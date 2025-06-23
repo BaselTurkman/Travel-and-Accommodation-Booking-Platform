@@ -2,18 +2,21 @@ import { useState } from "react";
 import { Button, Box } from "@mui/material";
 import { FormikHelpers } from "formik";
 import AddIcon from "@mui/icons-material/Add";
-import CityFormDialog from "./CityFormDialog";
-import { City } from "../types";
+import HotelFormDialog from "./HotelFormDialog";
+import { HotelPayload } from "../types";
+import useAddHotelAPI from "../hooks/useAddHotelAPI";
 import { initialValues } from "../constants";
-import useAddCityAPI from "../hooks/useAddCityAPI";
 
-function AddCityButton() {
+function AddHotelButton() {
   const [open, setOpen] = useState(false);
-  const { addCity, isPending } = useAddCityAPI();
+  const { addHotel, isPending } = useAddHotelAPI();
   const handleClose = () => setOpen(false);
 
-  const handleAdd = (values: City, helpers: FormikHelpers<City>) => {
-    addCity(values, {
+  const handleAdd = (
+    values: HotelPayload,
+    helpers: FormikHelpers<HotelPayload>
+  ) => {
+    addHotel(values, {
       onSuccess: () => {
         helpers.resetForm();
         handleClose();
@@ -28,19 +31,19 @@ function AddCityButton() {
         endIcon={<AddIcon />}
         onClick={() => setOpen(true)}
       >
-        Add City
+        Add Hotel
       </Button>
-      <CityFormDialog
+      <HotelFormDialog
         open={open}
         handleClose={handleClose}
         initialValues={initialValues}
         onSubmit={handleAdd}
         isPending={isPending}
-        title="Add City"
+        title="Add Hotel"
         formType="add"
       />
     </Box>
   );
 }
 
-export default AddCityButton;
+export default AddHotelButton;

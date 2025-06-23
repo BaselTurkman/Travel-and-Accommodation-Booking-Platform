@@ -42,3 +42,26 @@ export interface Booking extends BookingPayload {
   confirmationNumber: string;
 }
 
+export interface HotelInformation {
+  hotelName: string;
+  location: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  amenities: Amenity[];
+  starRating: number;
+  availableRooms: number;
+  imageUrl: string;
+  cityId: number;
+}
+
+export interface PaginationProps {
+  page: number;
+  pageSize: number;
+}
+
+export interface SearchParams {
+  pageNumber: number;
+  pageSize: number;
+  searchQuery: string;
+}
