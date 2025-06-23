@@ -14,11 +14,14 @@ const Hotels = () => {
   });
 
   const handleSearchChange = (searchQuery: string) => {
-    setSearchParams((prev) => ({
-      ...prev,
-      searchQuery,
-      pageNumber: 1,
-    }));
+    setSearchParams((prev) => {
+      if (prev.searchQuery === searchQuery.trim()) return prev;
+      return {
+        ...prev,
+        searchQuery: searchQuery.trim(),
+        pageNumber: 1,
+      };
+    });
   };
 
   const handlePageChange = (page: number) => {

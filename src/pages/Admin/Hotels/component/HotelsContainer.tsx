@@ -11,6 +11,7 @@ import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
 import { SearchParams } from "@/types";
+import NoItemFound from "@/components/NoItemFound";
 
 interface HotelsContainerProps {
   searchParams: SearchParams;
@@ -65,6 +66,15 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
     );
   }
 
+  if (isLoading) {
+    return (
+      <Grid container spacing={2}>
+        <BaseCardSkeleton />
+      </Grid>
+    );
+  }
+  
+  const isEmpty = hotels.length === 0;
   const renderHotels = hotels.map((hotel) => (
     <Grid
       size={{ xs: 12, sm: 6, md: 4 }}
@@ -77,10 +87,10 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
   return (
     <>
       <Grid container spacing={2}>
-        {isLoading ? <BaseCardSkeleton /> : renderHotels}
+        {isEmpty ? <NoItemFound title="No Hotels Found"/> : renderHotels}
       </Grid>
       {!isLoading && !isError && (
-        <Box mt={2} display="flex" justifyContent="center">
+        <Box mt={5} display="flex" justifyContent="center">
           <Pagination
             count={totalPages || 1}
             page={searchParams.pageNumber}

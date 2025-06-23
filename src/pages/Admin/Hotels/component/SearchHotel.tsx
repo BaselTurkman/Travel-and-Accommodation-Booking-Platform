@@ -1,5 +1,7 @@
-import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 
 interface SearchHotelProps {
   onSearch: (query: string) => void;
@@ -7,46 +9,38 @@ interface SearchHotelProps {
 
 const SearchHotel = ({ onSearch }: SearchHotelProps) => {
   const [input, setInput] = useState("");
+  const debounceValue = useDebounce(input);
 
-  const handleSearchClick = () => {
-    onSearch(input.trim());
-  };
+  useEffect(() => {
+    onSearch(debounceValue.trim());
+  }, [debounceValue, onSearch]);
 
-  const handleReset = () => {
+  const handleClear = () => {
     setInput("");
-    onSearch(""); 
+    onSearch("");
   };
 
   return (
-    <Box
-      sx={{
-        p: 2,
-        borderRadius: 3,
-        display: "flex",
-        alignItems: "center",
-        gap: 2,
-        minWidth: 300,
-      }}
-    >
+    <Box p={2} borderRadius={3} display="flex" alignItems="center" gap={2}>
       <TextField
         label="Hotel"
-        placeholder="Enter a Hotel name"
+        placeholder="Enter a hotel name"
         size="small"
         fullWidth
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleSearchClick();
+        slotProps={{
+          input: {
+            endAdornment: input && (
+              <InputAdornment position="end">
+                <IconButton onClick={handleClear} size="small">
+                  <ClearIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
-      <Button variant="contained" onClick={handleSearchClick}>
-        Search
-      </Button>
-      {input && (
-        <Button variant="outlined" onClick={handleReset} color="secondary">
-          Reset
-        </Button>
-      )}
     </Box>
   );
 };
