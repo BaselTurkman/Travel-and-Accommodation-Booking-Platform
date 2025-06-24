@@ -9,37 +9,39 @@ import { NavItem } from "@/types";
 
 export const useNavItems = () => {
   const userRole = useAppSelector(selectUserRole);
+  const isUser = userRole === "User"
+  const isAdmin = userRole === "Admin"
 
   const navItems: NavItem[] = [
     {
       text: "Home",
       icon: <HomeIcon />,
       path: "/me",
-      isVisible: userRole === "User",
+      isVisible: isUser,
     },
     {
       text: "Search",
       icon: <SearchIcon />,
       path: "/me/search-result",
-      isVisible: userRole === "User",
+      isVisible: isUser,
     },
     {
       text: "Cities",
       icon: <LocationCityIcon />,
       path: "/me/cities",
-      isVisible: userRole === "Admin",
+      isVisible: isAdmin,
     },
     {
       text: "Hotels",
       icon: <ApartmentIcon />,
       path: "/me/hotels",
-      isVisible: userRole === "Admin",
+      isVisible: isAdmin,
     },
     {
       text: "Rooms",
       icon: <MeetingRoomIcon />,
       path: "/me/rooms",
-      isVisible: userRole === "Admin",
+      isVisible: isAdmin,
     },
   ];
 

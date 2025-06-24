@@ -19,13 +19,13 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/store";
 import { selectCartItemsCount } from "@/features/Cart";
 import AccountMenu from "../AccountMenu";
 import { useNavItems } from "./hooks/useNavItems";
 import { selectUserRole } from "@/features/User";
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const cartItemCount = useAppSelector(selectCartItemsCount);
