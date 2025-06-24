@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export interface Amenity {
   id: number;
   name: string;
@@ -28,12 +30,12 @@ export interface Room {
 }
 
 export interface HotelRoomPayload {
-  roomId : number;
+  roomId: number;
   roomNumber: number;
   price: number;
   roomType: string;
   capacityOfAdults: number;
-  capacityOfChildren: number
+  capacityOfChildren: number;
 }
 
 export interface BookingPayload {
@@ -73,4 +75,11 @@ export interface SearchParams {
   pageNumber: number;
   pageSize: number;
   searchQuery: string;
+}
+
+export interface NavItem {
+  text: string;
+  icon: JSX.Element;
+  path: string;
+  isVisible: boolean;
 }

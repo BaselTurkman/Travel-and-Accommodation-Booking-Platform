@@ -19,36 +19,25 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import HomeIcon from "@mui/icons-material/Home";
-import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/store";
 import { selectCartItemsCount } from "@/features/Cart";
 import AccountMenu from "../AccountMenu";
+import { useNavItems } from "./hooks/useNavItems";
+import { selectUserRole } from "@/features/User";
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const cartItemCount = useAppSelector(selectCartItemsCount);
+  const navItems = useNavItems();
   const theme = useTheme();
+  const userRole = useAppSelector(selectUserRole);
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const isUser = userRole === "User";
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
-
-  const navItems = [
-    { text: "Home", icon: <HomeIcon />, path: "/me" },
-    { text: "Search", icon: <SearchIcon />, path: "/me/search-result" },
-    {
-      text: "Cart",
-      icon: (
-        <Badge badgeContent={cartItemCount} color="error">
-          <ShoppingCartIcon />
-        </Badge>
-      ),
-      path: "/me/checkout",
-    },
-  ];
 
   const drawerList = (
     <Box
@@ -86,34 +75,29 @@ export const Navbar = () => {
                 <MenuIcon />
               </IconButton>
             )}
-            <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ fontWeight: "bold", mr: 5 }}
+            >
               Booking
             </Typography>
-            {!isMobile && (
-              <>
+            {!isMobile &&
+              navItems.map(({ text, icon, path }) => (
                 <Button
+                  key={text}
                   color="inherit"
-                  onClick={() => navigate("/me")}
+                  onClick={() => navigate(path)}
                   sx={{ fontWeight: "bold", mx: 1 }}
-                  startIcon={<HomeIcon />}
+                  startIcon={icon}
                   size="large"
                 >
-                  Home
+                  {text}
                 </Button>
-                <Button
-                  color="inherit"
-                  onClick={() => navigate("/me/search-result")}
-                  sx={{ fontWeight: "bold", mx: 1 }}
-                  startIcon={<SearchIcon />}
-                  size="large"
-                >
-                  Search
-                </Button>
-              </>
-            )}
+              ))}
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {!isMobile && (
+            {isUser && (
               <Tooltip title="Cart" arrow>
                 <IconButton
                   color="inherit"
@@ -128,11 +112,7 @@ export const Navbar = () => {
             )}
             <AccountMenu />
           </Box>
-          <Drawer
-            anchor="left"
-            open={drawerOpen}
-            onClose={toggleDrawer(false)}
-          >
+          <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
             {drawerList}
           </Drawer>
         </Toolbar>
