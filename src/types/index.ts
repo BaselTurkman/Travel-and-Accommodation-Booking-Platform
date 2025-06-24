@@ -27,6 +27,15 @@ export interface Room {
   availability: boolean;
 }
 
+export interface HotelRoomPayload {
+  roomId : number;
+  roomNumber: number;
+  price: number;
+  roomType: string;
+  capacityOfAdults: number;
+  capacityOfChildren: number
+}
+
 export interface BookingPayload {
   customerName: string;
   hotelName: string;

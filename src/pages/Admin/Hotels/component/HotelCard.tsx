@@ -6,7 +6,6 @@ import {
   Stack,
   Box,
   Chip,
-  Button,
   Divider,
   Rating,
 } from "@mui/material";
@@ -19,6 +18,8 @@ import { Hotel, HotelPayload } from "../types";
 import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 import useDeleteHotelAPI from "../hooks/useDeleteHotelAPI";
 import InteractiveMap from "@/components/InteractiveMap";
+import EditButton from "@/components/Buttons/EditButton";
+import DeleteButton from "@/components/Buttons/DeleteButton";
 
 interface Props {
   hotel: Hotel;
@@ -109,21 +110,10 @@ const HotelCard: FC<Props> = ({ hotel, onEdit }) => {
         </Stack>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
-        <Button
-          variant="text"
-          color="error"
-          onClick={handleDelete}
-          loading={isPending}
-        >
+        <DeleteButton onClick={handleDelete} loading={isPending}>
           Delete
-        </Button>
-        <Button
-          variant="text"
-          color="warning"
-          onClick={() => onEdit(hotelPayload)}
-        >
-          Edit
-        </Button>
+        </DeleteButton>
+        <EditButton onClick={() => onEdit(hotelPayload)}>Edit</EditButton>
       </CardActions>
     </Card>
   );

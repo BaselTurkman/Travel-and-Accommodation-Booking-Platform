@@ -9,3 +9,4 @@ export const ConfirmationBooking = safeLazy(() => import("@/pages/ConfirmationBo
 export const Profile = safeLazy(() => import("@/pages/Profile"))
 export const Cities = safeLazy(() => import("@/pages/Admin/Cities"))
 export const Hotels = safeLazy(() => import("@/pages/Admin/Hotels"))
+export const HotelRooms = safeLazy(() => import("@/pages/Admin/Rooms"))

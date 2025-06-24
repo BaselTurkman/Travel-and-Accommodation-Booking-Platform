@@ -1,28 +1,30 @@
-import TextField from "@mui/material/TextField"
-import { FC } from "react"
-import { NumericInputProps } from "./types"
+import { TextField } from "@mui/material";
+import { FC } from "react";
+import { useField } from "formik";
+import { NumericInputProps } from "./types";
 
-const NumericInput: FC<NumericInputProps> = (props) => {
-  const { max, min } = props
+const NumericInput: FC<NumericInputProps> = ({ name, max, min, ...props }) => {
+  const [field, meta] = useField(name);
 
   return (
     <TextField
+      {...field}
       {...props}
       type="number"
-      inputProps={{
-        inputMode: "numeric",
-        pattern: "[0-9]*",
-        "aria-valuemax": max,
-        "aria-valuemin": min,
-      }}
-      InputProps={{
-        inputProps: {
-          max,
-          min,
+      error={Boolean(meta.touched && meta.error)}
+      helperText={meta.touched && meta.error}
+      slotProps={{
+        input: {
+          inputProps: {
+            inputMode: "numeric",
+            pattern: "[0-9]*",
+            max,
+            min,
+          },
         },
       }}
     />
-  )
-}
+  );
+};
 
-export default NumericInput
+export default NumericInput;

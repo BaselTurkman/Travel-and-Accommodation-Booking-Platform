@@ -6,6 +6,7 @@ import {
   ConfirmationBooking,
   Home,
   HotelDetails,
+  HotelRooms,
   Hotels,
   Profile,
   SearchResult,
@@ -50,6 +51,10 @@ const privateRoutes: RouteObject = {
         {
           path: "hotels",
           element: <Hotels />,
+        },
+        {
+          path: "rooms",
+          element: <HotelRooms />,
         },
       ],
     },
