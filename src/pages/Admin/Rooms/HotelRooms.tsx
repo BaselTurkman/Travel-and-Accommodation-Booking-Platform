@@ -1,28 +1,16 @@
 import PageContainer from "@/containers/PageContainer";
 import { Divider, Stack, Typography } from "@mui/material";
-import AddHotelButton from "./component/AddHotelButton";
 import { useState } from "react";
-import SearchHotel from "./component/SearchHotel";
 import { SearchParams } from "@/types";
 import { DEFAULT_SEARCH_PARAMS } from "@/constants";
 import HotelRoomsContainer from "./component/HotelRoomsContainer";
 import PageLimitSelector from "@/components/PageLimitSelector";
+import AddHotelRoomButton from "./component/AddHotelRoomButton";
 
 const HotelRooms = () => {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     ...DEFAULT_SEARCH_PARAMS,
   });
-
-  const handleSearchChange = (searchQuery: string) => {
-    setSearchParams((prev) => {
-      if (prev.searchQuery === searchQuery.trim()) return prev;
-      return {
-        ...prev,
-        searchQuery: searchQuery.trim(),
-        pageNumber: 1,
-      };
-    });
-  };
 
   const handleLimitChange = (pageSize: number) => {
     setSearchParams((prev) => ({
@@ -30,6 +18,14 @@ const HotelRooms = () => {
       pageSize,
       pageNumber: 1,
     }));
+  };
+
+    const handlePageChange = (page: number) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      pageNumber: page,
+    }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -58,16 +54,15 @@ const HotelRooms = () => {
             justifyContent="center"
             flexWrap="wrap"
           >
-            <SearchHotel onSearch={handleSearchChange} />
             <PageLimitSelector
               value={searchParams.pageSize}
               onChange={handleLimitChange}
             />
-            <AddHotelButton />
+            <AddHotelRoomButton />
           </Stack>
         </Stack>
         <Divider />
-        <HotelRoomsContainer />
+        <HotelRoomsContainer onPageChange={handlePageChange} searchParams={searchParams} />
       </Stack>
     </PageContainer>
   );

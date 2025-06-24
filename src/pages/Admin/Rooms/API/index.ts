@@ -1,10 +1,11 @@
-import { HotelRoomPayload } from "@/types";
-import { GetHotelRooms } from "../types";
+import { HotelRoomPayload, SearchParams } from "@/types";
+import { GetHotelRoomsResponse } from "../types";
 import { axiosInstance } from "@/config/axios.config";
+import { buildHotelRoomSearchURL } from "../utils/buildHotelRoomSearchURL";
 
-export const getHotelRoomsAPI = async () => {
-  //for now hard coded to 2
-  const res = await axiosInstance.get<GetHotelRooms>(`/hotels/2/rooms`);
+export const getHotelRoomsAPI = async (searchParams: SearchParams) => {
+  const url = buildHotelRoomSearchURL(searchParams, 2)  
+  const res = await axiosInstance.get<GetHotelRoomsResponse>(url);
   return res.data;
 };
 

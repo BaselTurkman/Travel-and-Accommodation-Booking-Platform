@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Pagination } from "@mui/material";
 import { FC, useState } from "react";
-import { HotelRoomPayload } from "@/types";
-import HotelFormDialog from "./HotelFormDialog";
+import { HotelRoomPayload, SearchParams } from "@/types";
+import HotelRoomFormDialog from "./HotelRoomFormDialog";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
@@ -12,12 +12,12 @@ import { useGetHotelRoomsAPI } from "../hooks/useGetHotelRoomsAPI";
 import useEditHotelRoomAPI from "../hooks/useEditHotelRoomAPI";
 import HotelRoom from "@/components/HotelRoom";
 
-// interface HotelsContainerProps {
-//   searchParams: SearchParams;
-// }
-
-const HotelRoomsContainer: FC = () => {
-  const { hotelRooms, isLoading, isError, refetch } = useGetHotelRoomsAPI();
+interface HotelRoomsContainerProps {
+  searchParams: SearchParams;
+  onPageChange: (page: number) => void;
+}
+const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, searchParams}) => {
+  const { hotelRooms, isLoading, isError, refetch, pageNumber, totalPages } = useGetHotelRoomsAPI(searchParams);
   const { editHotelRoom, isPending } = useEditHotelRoomAPI();
   const { showWarningSnackbar } = useSnackBar();
   const [retryCount, setRetryCount] = useState(0);
@@ -83,8 +83,18 @@ const HotelRoomsContainer: FC = () => {
       <Grid container spacing={2}>
         {isEmpty ? <NoItemFound title="No Hotels Found" /> : renderHotels}
       </Grid>
+       {!isLoading && !isError && (
+        <Box mt={5} display="flex" justifyContent="center">
+          <Pagination
+            count={totalPages || 1}
+            page={pageNumber}
+            onChange={(_, value) => onPageChange(value)}
+            color="primary"
+          />
+        </Box>
+      )}
       {selectedHotelRoom && (
-        <HotelFormDialog
+        <HotelRoomFormDialog
           open={openDialog}
           handleClose={handleCloseDialog}
           initialValues={selectedHotelRoom}

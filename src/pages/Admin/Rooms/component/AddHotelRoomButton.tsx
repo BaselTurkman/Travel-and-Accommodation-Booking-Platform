@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Button, Box } from "@mui/material";
 import { FormikHelpers } from "formik";
 import AddIcon from "@mui/icons-material/Add";
-import HotelFormDialog from "./HotelFormDialog";
+import HotelRoomFormDialog from "./HotelRoomFormDialog";
 import { HotelRoomPayload } from "@/types";
 import { initialValues } from "../constants";
 import useAddHotelRoomAPI from "../hooks/useAddHotelAPI";
 
-function AddHotelButton() {
+function AddHotelRoomButton() {
   const [open, setOpen] = useState(false);
   const {addHotelRoom, isPending} = useAddHotelRoomAPI()
   const handleClose = () => setOpen(false);
@@ -33,7 +33,7 @@ function AddHotelButton() {
       >
         Add Hotel Room
       </Button>
-      <HotelFormDialog
+      <HotelRoomFormDialog
         open={open}
         handleClose={handleClose}
         initialValues={initialValues}
@@ -46,4 +46,4 @@ function AddHotelButton() {
   );
 }
 
-export default AddHotelButton;
+export default AddHotelRoomButton;

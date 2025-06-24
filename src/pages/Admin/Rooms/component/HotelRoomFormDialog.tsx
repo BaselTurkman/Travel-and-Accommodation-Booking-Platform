@@ -20,7 +20,7 @@ interface Props {
   formType?: string;
 }
 
-const HotelFormDialog: FC<Props> = ({
+const HotelRoomFormDialog: FC<Props> = ({
   open,
   handleClose,
   initialValues,
@@ -82,4 +82,4 @@ const HotelFormDialog: FC<Props> = ({
   );
 };
 
-export default HotelFormDialog;
+export default HotelRoomFormDialog;
