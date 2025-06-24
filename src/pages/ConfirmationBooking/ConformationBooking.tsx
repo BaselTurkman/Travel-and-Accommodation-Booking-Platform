@@ -18,8 +18,9 @@ import useGetBookingAPI from "./hooks/useGetBookingAPI";
 import NavigationButton from "@/components/Buttons/NavigationButton/NavigationButton";
 import BookingConfirmationSkeleton from "@/components/Skeletons/BookingConfirmationSkeleton/BookingConfirmationSkeleton";
 import PDFButton from "./components/PDFButton";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
-const ConformationBooking: FC = () => {
+const ConfirmationBooking: FC = () => {
   const { bookingId } = useParams();
   const { bookingData, isLoading } = useGetBookingAPI(bookingId ?? "0");
 
@@ -105,4 +106,9 @@ const ConformationBooking: FC = () => {
   );
 };
 
-export default ConformationBooking;
+const ConformationBookingWithRoute = routeHOC({
+  title: "Conformation Booking",
+  pageAccessName: "ConfirmationBooking",
+})(ConfirmationBooking);
+
+export default ConformationBookingWithRoute;

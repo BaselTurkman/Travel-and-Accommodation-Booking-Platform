@@ -6,6 +6,7 @@ import UserInformation from "./components/UserInformation";
 import CheckoutButton from "./components/CheckoutButton";
 import { useAppSelector } from "@/store/store";
 import { selectCartItemsCount, selectTotalPrice } from "@/features/Cart";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const Checkout = () => {
   const cartLength = useAppSelector(selectCartItemsCount);
@@ -49,4 +50,9 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+const CheckoutWithRoute = routeHOC({
+  title: "Checkout",
+  pageAccessName: "Checkout",
+})(Checkout);
+
+export default CheckoutWithRoute;

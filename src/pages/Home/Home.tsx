@@ -4,6 +4,7 @@ import RecentVisitedHotels from "./components/RecentVisitedHotels";
 import TrendingDestination from "./components/TrendingDestination";
 import { Box, Stack, Typography } from "@mui/material";
 import PageContainer from "@/containers/PageContainer";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const Home = () => {
   return (
@@ -27,4 +28,10 @@ const Home = () => {
   );
 };
 
-export default Home;
+const HomeWithRoute = routeHOC({
+  title: "Home",
+  pageAccessName: "Home",
+})(Home);
+
+
+export default HomeWithRoute;
