@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Typography, Box, Stack, Divider, Chip, Button } from "@mui/material";
+import { Typography, Box, Stack, Divider, Chip } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import GroupIcon from "@mui/icons-material/Group";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
@@ -13,6 +13,8 @@ import { addToCart, removeFromCart, selectIsRoomInCart } from "@/features/Cart";
 import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 import useDeleteHotelRoomAPI from "./hooks/useDeleteHotelRoomAPI";
 import { HotelRoomPayload } from "@/types";
+import EditButton from "../Buttons/EditButton";
+import DeleteButton from "../Buttons/DeleteButton";
 
 const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
@@ -90,24 +92,14 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   );
 
   const renderActionButtons = (
-    <Box display="flex" justifyContent="space-between">
-      <Button
-        variant="text"
-        color="warning"
-        onClick={() => onEdit?.(roomPayload)}
-        size="large"
-      >
-        Edit
-      </Button>
-      <Button
-        variant="text"
-        color="error"
+    <Box display="flex" justifyContent="space-between" bgcolor="w">
+      <EditButton onClick={() => onEdit?.(roomPayload)}>Edit</EditButton>
+      <DeleteButton
         loading={isPending}
         onClick={handleRoomDelete}
-        size="large"
       >
         Delete
-      </Button>
+      </DeleteButton>
     </Box>
   );
 
@@ -150,7 +142,7 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
               sx={{ px: 0.5, py: 1 }}
               icon={<ChildCareIcon />}
               label={`Children: ${capacityOfChildren}`}
-              color="warning"
+              color="secondary"
             />
           </Box>
           <HotelAmenities amenities={roomAmenities} />
