@@ -25,7 +25,7 @@ const Cities = () => {
             textAlign={{ xs: "center", md: "left" }}
             width={{ xs: "100%", md: "auto" }}
           >
-            Rooms
+            Cities
           </Typography>
 
           <Stack
