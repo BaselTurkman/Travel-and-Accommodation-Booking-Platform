@@ -13,3 +13,4 @@ export const Cities = safeLazy(() => import("@/pages/Admin/Cities"));
 export const Hotels = safeLazy(() => import("@/pages/Admin/Hotels"));
 export const HotelRooms = safeLazy(() => import("@/pages/Admin/Rooms"));
 export const AccessDenied = safeLazy(() => import("@/pages/AccessDenied"));
+export const Unauthenticated = safeLazy(() => import("@/pages/Unauthenticated"))
