@@ -43,9 +43,9 @@ const SearchResult = () => {
   );
 };
 
-const HomeWithRoute = routeHOC({
+const SearchResultWithRoute = routeHOC({
   title: "Search Result",
   pageAccessName: "SearchResult",
 })(SearchResult);
 
-export default HomeWithRoute;
+export default SearchResultWithRoute;
