@@ -5,6 +5,7 @@ import FilterAmenities from "./components/FilterAmenities";
 import { Grid, Box, Typography, Divider } from "@mui/material";
 import useGetSearchResultAPI from "./hooks/useGetSearchResultAPI";
 import { AmenitiesProvider } from "./context/AmenitiesProvider";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const SearchResult = () => {
   const { isLoading } = useGetSearchResultAPI();
@@ -42,4 +43,9 @@ const SearchResult = () => {
   );
 };
 
-export default SearchResult;
+const SearchResultWithRoute = routeHOC({
+  title: "Search Result",
+  pageAccessName: "SearchResult",
+})(SearchResult);
+
+export default SearchResultWithRoute;

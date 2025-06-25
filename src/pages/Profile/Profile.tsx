@@ -13,6 +13,7 @@ import { selectUser } from "@/features/User";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const Profile: React.FC = () => {
   const { family_name, given_name, userType, user_id } =
@@ -76,4 +77,9 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+const ProfileWithRoute = routeHOC({
+  title: "Profile",
+  pageAccessName: "Profile",
+})(Profile);
+
+export default ProfileWithRoute;

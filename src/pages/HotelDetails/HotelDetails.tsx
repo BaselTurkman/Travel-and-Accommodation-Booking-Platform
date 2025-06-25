@@ -5,6 +5,7 @@ import { Box, Grid } from "@mui/material";
 import HotelReviews from "./components/HotelReviews";
 import AvailableRooms from "./components/AvailableRooms";
 import HotelGallery from "./components/HotelGallery";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const HotelDetails = () => {
   const { hotelId = "" } = useParams();
@@ -26,4 +27,9 @@ const HotelDetails = () => {
   );
 };
 
-export default HotelDetails;
+const HotelDetailsWithRoute = routeHOC({
+  title: "Hotel Details",
+  pageAccessName: "HotelDetails",
+})(HotelDetails);
+
+export default HotelDetailsWithRoute;

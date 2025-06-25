@@ -7,6 +7,7 @@ import { SearchParams } from "@/types";
 import { DEFAULT_SEARCH_PARAMS } from "@/constants";
 import HotelsContainer from "./component/HotelsContainer";
 import PageLimitSelector from "@/components/PageLimitSelector";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const Hotels = () => {
   const [searchParams, setSearchParams] = useState<SearchParams>({
@@ -84,4 +85,9 @@ const Hotels = () => {
   );
 };
 
-export default Hotels;
+const HotelsWithRoute = routeHOC({
+  title: "Hotels",
+  pageAccessName: "Hotels",
+})(Hotels);
+
+export default HotelsWithRoute;

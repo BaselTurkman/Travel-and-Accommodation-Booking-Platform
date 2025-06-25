@@ -6,6 +6,7 @@ import { DEFAULT_SEARCH_PARAMS } from "@/constants";
 import HotelRoomsContainer from "./component/HotelRoomsContainer";
 import PageLimitSelector from "@/components/PageLimitSelector";
 import AddHotelRoomButton from "./component/AddHotelRoomButton";
+import routeHOC from "@/routes/HOCs/routeHOCs";
 
 const HotelRooms = () => {
   const [searchParams, setSearchParams] = useState<SearchParams>({
@@ -20,7 +21,7 @@ const HotelRooms = () => {
     }));
   };
 
-    const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number) => {
     setSearchParams((prev) => ({
       ...prev,
       pageNumber: page,
@@ -62,10 +63,18 @@ const HotelRooms = () => {
           </Stack>
         </Stack>
         <Divider />
-        <HotelRoomsContainer onPageChange={handlePageChange} searchParams={searchParams} />
+        <HotelRoomsContainer
+          onPageChange={handlePageChange}
+          searchParams={searchParams}
+        />
       </Stack>
     </PageContainer>
   );
 };
 
-export default HotelRooms;
+const HotelRoomsWithRoute = routeHOC({
+  title: "HotelRooms",
+  pageAccessName: "Rooms",
+})(HotelRooms);
+
+export default HotelRoomsWithRoute;
