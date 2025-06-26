@@ -1,9 +1,10 @@
 import { FormikHelpers } from "formik";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import TextField from "@/components/Fields/TextField";
 import GenericFormDialog from "@/components/GenericFormDialog";
 import { validationSchema } from "../formSchema";
 import { City } from "../types";
+import FormSection from "@/components/FormSection";
 
 interface Props {
   open: boolean;
@@ -36,13 +37,19 @@ const CityFormDialog = ({
       formType={formType}
     >
       <Stack gap={2}>
-        <TextField name="name" aria-label="Please Enter the City Name" />
-        <TextField
-          name="description"
-          aria-label="Please Enter the City Description"
-          rows={4}
-          multiline
-        />
+        <FormSection title="City Information">
+          <Grid size={{ xs: 12 }}>
+            <TextField name="name" aria-label="Please Enter the City Name" />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <TextField
+              name="description"
+              aria-label="Please Enter the City Description"
+              rows={4}
+              multiline
+            />
+          </Grid>
+        </FormSection>
       </Stack>
     </GenericFormDialog>
   );
