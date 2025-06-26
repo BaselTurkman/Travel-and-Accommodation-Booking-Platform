@@ -14,19 +14,19 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import routeHOC from "@/routes/HOCs/routeHOCs";
+import PageContainer from "@/containers/PageContainer";
 
 const Profile: React.FC = () => {
   const { family_name, given_name, userType, user_id } =
     useAppSelector(selectUser);
 
   return (
-    <Box>
+    <PageContainer>
       <Paper
         elevation={3}
         sx={{
           maxWidth: 600,
           mx: "auto",
-          mt: -10,
           p: 4,
           borderRadius: 3,
         }}
@@ -73,7 +73,7 @@ const Profile: React.FC = () => {
           </Button>
         </Box>
       </Paper>
-    </Box>
+    </PageContainer>
   );
 };
 
