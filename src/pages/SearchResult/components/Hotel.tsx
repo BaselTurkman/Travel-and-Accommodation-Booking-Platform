@@ -84,12 +84,7 @@ const Hotel: FC<Props> = ({ hotel }) => {
           </Typography>
         </Box>
 
-        <Box
-          display="flex"
-          alignItems="center"
-          gap={1}
-          justifyContent="space-between"
-        >
+        <Box display="flex" alignItems="center" gap={1} mb={2}>
           <AttachMoneyIcon fontSize="small" color="action" />
           <Typography
             variant="body2"
@@ -107,11 +102,12 @@ const Hotel: FC<Props> = ({ hotel }) => {
           <Typography variant="body2" color="text.secondary">
             / night
           </Typography>
-          <NavigationButton
-            to={`/me/hotel/${hotelId}`}
-            caption="show more details"
-          />
         </Box>
+
+        <NavigationButton
+          to={`/me/hotel/${hotelId}`}
+          caption="show more details"
+        />
       </Stack>
     </BaseCard>
   );

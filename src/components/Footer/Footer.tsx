@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Typography variant="body2">
+          <Typography variant="body1" fontWeight="bold">
             © {new Date().getFullYear()} Basel Turkman
           </Typography>
 

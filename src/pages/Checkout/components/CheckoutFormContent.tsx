@@ -6,29 +6,35 @@ import NumericInput from "@/components/Fields/NumericInput";
 import AutoCompleteField from "@/components/Fields/AutoCompleteField/AutoCompleteField";
 import { BookingPayload, PaymentMethod } from "../types";
 import { paymentMethods } from "../constants";
+import FormSection from "@/components/FormSection";
 
 const CheckoutFormContent = () => {
   const { setFieldValue, values } = useFormikContext<BookingPayload>();
 
   return (
     <Box sx={{ px: 2, py: 1 }}>
-      <Grid container spacing={2}>
+      <FormSection title="Booking Info">
         <Grid size={{ xs: 12 }}>
           <DatePickerField name="bookingDateTime" />
         </Grid>
+      </FormSection>
+      <FormSection title="Customer Details">
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField name="customerName" aria-label="Enter a Customer Name" />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField name="hotelName" aria-label="Enter a Hotel Name" />
         </Grid>
+      </FormSection>
+      <FormSection title="Room Info">
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField name="roomNumber" aria-label="Enter a Room Number" />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField name="roomType" aria-label="Enter a Room Type" />
         </Grid>
-
+      </FormSection>
+      <FormSection title="Payment">
         <Grid size={{ xs: 12 }}>
           <NumericInput name="totalCost" min={0} label="Total Cost" fullWidth />
         </Grid>
@@ -50,7 +56,7 @@ const CheckoutFormContent = () => {
             }}
           />
         </Grid>
-      </Grid>
+      </FormSection>
     </Box>
   );
 };
