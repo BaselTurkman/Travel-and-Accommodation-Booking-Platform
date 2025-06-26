@@ -36,7 +36,7 @@ const Login = () => {
       >
         {!isTabletOrLess && (
           <Box
-          flex={1}
+            flex={1}
             sx={{
               backgroundImage: `url(${loginImg})`,
               backgroundSize: "cover",
@@ -45,11 +45,11 @@ const Login = () => {
           />
         )}
         <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flex={1}
-        p={1}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flex={1}
+          p={1}
           sx={{
             backgroundColor: theme.palette.background.paper,
           }}

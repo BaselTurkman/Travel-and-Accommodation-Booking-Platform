@@ -1,4 +1,3 @@
-import { clearSession } from "@/lib/session";
 import { User } from "@/types/User";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -20,10 +19,8 @@ const userSlice = createSlice({
       state = { ...action.payload };
       return state;
     },
-    logout: (state) => {
-      state = initialState;
-      clearSession();
-      return state;
+    logout: () => {
+      return initialState;
     },
   },
 });
@@ -31,4 +28,3 @@ const userSlice = createSlice({
 export const { login, updateUserSession, logout } = userSlice.actions;
 
 export default userSlice.reducer;
-

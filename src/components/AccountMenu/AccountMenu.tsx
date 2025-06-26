@@ -12,9 +12,8 @@ import {
 } from "@mui/material";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/store/store";
-import { logout } from "@/features/User";
 import { StyledMenu } from "./StyledMenu";
+import { clearSession } from "@/lib/session";
 
 const LogoutMenuItem = ({ onLogout }: { onLogout: () => void }) => {
   const theme = useTheme();
@@ -32,7 +31,6 @@ const LogoutMenuItem = ({ onLogout }: { onLogout: () => void }) => {
 
 export const AccountMenu = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -48,8 +46,8 @@ export const AccountMenu = () => {
     handleClose();
   };
   const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
+    clearSession();
+    navigate("/", { replace: true });
   };
 
   return (

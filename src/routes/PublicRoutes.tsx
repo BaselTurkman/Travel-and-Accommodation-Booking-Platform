@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { AccessDenied, Login } from "./imports";
+import { AccessDenied, Login, Unauthenticated } from "./imports";
 
 const publicRoutes: RouteObject = {
   path: "",
@@ -11,6 +11,10 @@ const publicRoutes: RouteObject = {
     {
       path: "access-denied",
       element: <AccessDenied />,
+    },
+    {
+      path: "unauthenticated",
+      element: <Unauthenticated />,
     },
   ],
 };
