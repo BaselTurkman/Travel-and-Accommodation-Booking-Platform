@@ -1,13 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import HotelRoom from "@/components/HotelRoom";
 import Providers from "@/Providers";
 import { sampleRoom } from "./constants";
 import PageContainer from "@/containers/PageContainer";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 const meta: Meta<typeof HotelRoom> = {
   title: "Components/Cards/HotelRoom",
   component: HotelRoom,
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <Providers>
@@ -27,6 +28,13 @@ export const Default: Story = {
     room: sampleRoom,
     actionButtons: false,
   },
+  render: () => {
+    return (
+      <Box width={400}>
+        <HotelRoom room={sampleRoom} />
+      </Box>
+    );
+  },
 };
 
 export const WithActionButtons: Story = {
@@ -34,25 +42,12 @@ export const WithActionButtons: Story = {
     room: sampleRoom,
     actionButtons: true,
   },
-};
-
-export const RoomWithChildrenCapacityZero: Story = {
-  args: {
-    room: {
-      ...sampleRoom,
-      capacityOfChildren: 0,
-    },
-    actionButtons: false,
-  },
-};
-
-export const RoomWithHighPrice: Story = {
-  args: {
-    room: {
-      ...sampleRoom,
-      price: 1200,
-    },
-    actionButtons: false,
+  render: () => {
+    return (
+      <Box width={400}>
+        <HotelRoom room={sampleRoom} actionButtons={true} />
+      </Box>
+    );
   },
 };
 
@@ -64,19 +59,16 @@ export const RoomWithoutAmenities: Story = {
     },
     actionButtons: false,
   },
-};
-
-export const RoomUnavailable: Story = {
-  args: {
-    room: {
-      ...sampleRoom,
-      availability: false,
-    },
-    actionButtons: false,
+  render: () => {
+    return (
+      <Box width={400}>
+        <HotelRoom room={{ ...sampleRoom, roomAmenities: [] }} />
+      </Box>
+    );
   },
 };
 
-export const SixRooms: Story = {
+export const MultiRoom: Story = {
   render: () => {
     const rooms = Array(6)
       .fill(null)

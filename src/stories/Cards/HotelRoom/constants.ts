@@ -1,4 +1,6 @@
-export const sampleRoom = {
+import { Room } from "@/types";
+
+export const sampleRoom : Room = {
   roomId: 101,
   roomNumber: 1,
   roomPhotoUrl:
