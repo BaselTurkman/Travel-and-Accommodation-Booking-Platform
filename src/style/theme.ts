@@ -47,8 +47,8 @@ const theme = createTheme({
           },
         },
         outlinedPrimary: {
-          borderColor: "#1E88E5",
-          color: "#1E88E5",
+          borderColor: "#1565c0",
+          color: "#1565c0",
           "&:hover": {
             backgroundColor: "rgba(30, 136, 229, 0.08)",
           },
@@ -66,6 +66,18 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: "#1565c0",
+          color: "#ffffff",
+        },
+        colorSecondary: {
+          backgroundColor: "#2e7d32",
+          color: "#ffffff",
         },
       },
     },

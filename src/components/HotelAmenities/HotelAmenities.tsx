@@ -19,6 +19,7 @@ const HotelAmenities: FC<HotelAmenitiesProps> = ({ amenities }) => {
             arrow
           >
             <Box
+              role="text"
               px={1.5}
               py={0.5}
               borderRadius={2}

@@ -5,6 +5,8 @@ import Booking from "./store";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import BookingThemeProvider from "./style/BookingThemeProvider";
+import ConfirmationDialog from "./components/ConfirmationDialog/ConfirmationDialog";
+import BookingSnackbar from "./components/Snackbar";
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -14,6 +16,8 @@ const Providers: FC<PropsWithChildren> = ({ children }) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             {children}
           </LocalizationProvider>
+          <BookingSnackbar />
+          <ConfirmationDialog />
         </BookingQueryClientProvider>
       </BookingThemeProvider>
     </Provider>
