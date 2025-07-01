@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { baseHotel } from "./constants";
 import PageContainer from "@/containers/PageContainer";
 import { Box, Grid } from "@mui/material";
+import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 
 const meta: Meta<typeof Hotel> = {
   title: "Components/Cards/RecentHotel",
@@ -105,6 +106,16 @@ export const MultiHotels: Story = {
           ))}
         </Grid>
       </PageContainer>
+    );
+  },
+};
+
+export const LoadingRecentHotel: Story = {
+  render: () => {
+    return (
+      <Grid container spacing={2}>
+        <BaseCardSkeleton />
+      </Grid>
     );
   },
 };

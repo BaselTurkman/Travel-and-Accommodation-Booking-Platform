@@ -39,7 +39,7 @@ function AddHotelRoomButton() {
         initialValues={initialValues}
         onSubmit={handleAdd}
         isPending={isPending}
-        title="Add Hotel"
+        title="Add Hotel Room"
         formType="add"
       />
     </Box>

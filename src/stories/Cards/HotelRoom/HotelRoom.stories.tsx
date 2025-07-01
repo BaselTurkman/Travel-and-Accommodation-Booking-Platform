@@ -4,6 +4,7 @@ import Providers from "@/Providers";
 import { sampleRoom } from "./constants";
 import PageContainer from "@/containers/PageContainer";
 import { Box, Grid } from "@mui/material";
+import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 
 const meta: Meta<typeof HotelRoom> = {
   title: "Components/Cards/HotelRoom",
@@ -84,6 +85,16 @@ export const MultiRoom: Story = {
             <HotelRoom key={room.roomId} room={room} actionButtons={false} />
           </Grid>
         ))}
+      </Grid>
+    );
+  },
+};
+
+export const LoadingHotelRoom: Story = {
+  render: () => {
+    return (
+      <Grid container spacing={2}>
+        <BaseCardSkeleton />
       </Grid>
     );
   },

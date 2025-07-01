@@ -4,6 +4,7 @@ import Deal from "@/pages/Home/components/Deal";
 import { baseDeal } from "./Constants";
 import { Box, Grid } from "@mui/material";
 import PageContainer from "@/containers/PageContainer";
+import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 
 const meta: Meta<typeof Deal> = {
   title: "Components/Cards/Deal",
@@ -100,6 +101,16 @@ export const MultiDeals: Story = {
           ))}
         </Grid>
       </PageContainer>
+    );
+  },
+};
+
+export const LoadingDeal: Story = {
+  render: () => {
+    return (
+      <Grid container spacing={2}>
+        <BaseCardSkeleton />
+      </Grid>
     );
   },
 };
