@@ -74,13 +74,13 @@ export const MultiRoom: Story = {
       .fill(null)
       .map((_, i) => ({
         ...sampleRoom,
-        roomId: 100 + i,
+        roomId: 100 + i + 1,
       }));
 
     return (
       <Grid container spacing={2}>
         {rooms.map((room) => (
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={room.roomId}>
             <HotelRoom key={room.roomId} room={room} actionButtons={false} />
           </Grid>
         ))}
