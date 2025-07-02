@@ -48,6 +48,13 @@ This project is a private React app using the latest tools to provide a scalable
 
 ---
 
+---
+## Demo
+
+Check out the demo video here: https://drive.google.com/file/d/17ehfZ9yevD4HRP0K86Pt6cOxFN4A-GMA/view?usp=sharing
+
+---
+
 ## Public Pages
 
 ### Login Page  
@@ -58,6 +65,13 @@ This project is a private React app using the latest tools to provide a scalable
 
 ### Access Denied Page  
 ![Access-Denied](src/assets/Readme-images/Access-Denied.png)
+
+### Not Found Page
+![Not-Found](src/assets/Readme-images/Not-Found-Page.png)
+
+### Failed to Load Page
+![Failed-to-Load-Page](src/assets/Readme-images/Failed-To-Load-Page.png)
+
 
 ---
 

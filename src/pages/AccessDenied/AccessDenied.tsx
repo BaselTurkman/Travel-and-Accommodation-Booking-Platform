@@ -1,6 +1,7 @@
 import { Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { bounce } from "@/Animation/bounce";
 
 const AccessDenied = () => {
   const navigate = useNavigate();
@@ -15,7 +16,10 @@ const AccessDenied = () => {
       textAlign="center"
       p={4}
     >
-      <LockOutlinedIcon color="error" sx={{ fontSize: 80, mb: 2 }} />
+      <LockOutlinedIcon
+        color="error"
+        sx={{ fontSize: 80, mb: 2, animation: `${bounce} 1.5s infinite` }}
+      />
       <Typography variant="h4" gutterBottom>
         Access Denied
       </Typography>

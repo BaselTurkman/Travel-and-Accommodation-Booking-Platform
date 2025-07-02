@@ -15,7 +15,7 @@ const CheckoutFormContent = () => {
     <Box sx={{ px: 2, py: 1 }}>
       <FormSection title="Booking Info">
         <Grid size={{ xs: 12 }}>
-          <DatePickerField name="bookingDateTime" />
+          <DatePickerField name="bookingDateTime" label="Booking Date Time" />
         </Grid>
       </FormSection>
       <FormSection title="Customer Details">

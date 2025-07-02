@@ -22,11 +22,12 @@ export const axiosInstance = axios.create({
   ...defaultAxiosSettings,
 });
 
-export const axiosFormData = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    ...defaultAxiosSettings.headers,
-    Accept: "*/*",
-    "Content-Type": "multipart/form-data",
-  },
+axiosInstance.interceptors.request.use((config) => {
+  const token = getSession();
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete config.headers["Authorization"];
+  }
+  return config;
 });

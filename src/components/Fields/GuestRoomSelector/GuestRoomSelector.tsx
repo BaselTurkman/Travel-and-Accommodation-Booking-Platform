@@ -1,10 +1,10 @@
 import { Box, Button, Menu, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
-import NumericInput from "../NumericInput";
 import { GuestRoomSelectorProps } from "./types";
-import PersonIcon from '@mui/icons-material/Person';
-import ChildCareIcon from '@mui/icons-material/ChildCare';
-import HotelIcon from '@mui/icons-material/Hotel';
+import PersonIcon from "@mui/icons-material/Person";
+import ChildCareIcon from "@mui/icons-material/ChildCare";
+import HotelIcon from "@mui/icons-material/Hotel";
+import NumericCounter from "../NumericCounter";
 
 const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
   const { adults, children, rooms, setAdults, setChildren, setRooms } =
@@ -32,13 +32,13 @@ const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
       setter: setChildren,
       min: 0,
     },
-    { name: "rooms", label: "Rooms", value: rooms, setter: setRooms, min: 1 },
+    { name: "numberOfRooms", label: "Rooms", value: rooms, setter: setRooms, min: 1 },
   ];
 
   return (
     <Box>
       <Button variant="text" onClick={handleClick} sx={{ minWidth: 320 }}>
-        <Box display="flex" alignItems="center"  gap={1}>
+        <Box display="flex" alignItems="center" gap={1}>
           <PersonIcon fontSize="small" />
           <Typography variant="body2">
             {adults} Adult{adults > 1 ? "s" : ""}
@@ -60,7 +60,7 @@ const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
-        {options.map(({ name, label, value, setter, min }) => (
+        {options.map(({ name, label, min }) => (
           <MenuItem key={name} disableRipple>
             <Box
               display="flex"
@@ -69,13 +69,7 @@ const GuestRoomSelector = ({ guestRoomSelector }: GuestRoomSelectorProps) => {
               width="100%"
             >
               <Typography>{label}</Typography>
-              <NumericInput
-                name={name}
-                value={value}
-                min={min}
-                onChange={(e) => setter(parseInt(e.target.value))}
-                sx={{ width: 80, ml: 2 }}
-              />
+              <NumericCounter name={name} min={min} />
             </Box>
           </MenuItem>
         ))}
