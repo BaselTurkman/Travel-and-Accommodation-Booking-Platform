@@ -8,7 +8,8 @@ A modern React-based booking application built with TypeScript, leveraging a ran
 
 - [Overview](#overview)  
 - [Technologies & Dependencies](#technologies--dependencies)
-- [Demo](#demo)  
+- [Demo](#demo)
+- [Login Information](#login-information)  
 - [Public Pages](#public-pages)  
 - [User Pages](#user-pages)  
 - [Admin Pages](#admin-pages)
@@ -56,6 +57,18 @@ This project is a private React app using the latest tools to provide a scalable
 
 Check out the demo video here: https://drive.google.com/file/d/17ehfZ9yevD4HRP0K86Pt6cOxFN4A-GMA/view?usp=sharing
 
+---
+
+---
+## Login Information
+
+### User Login
+- **Username:** `user`
+- **Password:** `user`
+
+### Admin Login
+- **Username:** `admin`
+- **Password:** `admin`
 ---
 
 ## Public Pages
@@ -172,12 +185,12 @@ My project is managed using an agile scrum board to track tasks and sprints.
    ```bash
    npm run dev
 
-4. ## Clone the Backend Static Repository:
-   Make sure to clone this repository: https://github.com/BaselTurkman/Travel-and-Accommodation-Booking-static-BE.git
-   Then follow its Getting Started instructions to run the backend server and enable API data fetching.
+4. **Clone the Backend Static Repository:**
+     Make sure to clone this repository: https://github.com/BaselTurkman/Travel-and-Accommodation-Booking-static-BE.git
+   Then follow its *Getting Started* instructions to run the backend server and enable API data fetching.
    
-5. ## Configure the API URL:
-   Ensure your `.env` file contains the following so the frontend can connect to the backend:
+5. **Configure the API URL:**
+     Ensure your `.env` file contains the following so the frontend can connect to the backend:
    ```bash
    VITE_API_URL="http://localhost:5000/api/"
 
