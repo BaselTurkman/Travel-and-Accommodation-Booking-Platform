@@ -59,6 +59,13 @@ This project is a private React app using the latest tools to provide a scalable
 ### Access Denied Page  
 ![Access-Denied](src/assets/Readme-images/Access-Denied.png)
 
+### Not Found Page
+![Not-Found](src/assets/Readme-images/Not-Found-Page.png)
+
+### Failed to Load Page
+![Failed-to-Load-Page](src/assets/Readme-images/Failed-To-Load-Page.png)
+
+
 ---
 
 ## User Pages
