@@ -14,9 +14,11 @@ export const bookingSchema: yup.ObjectSchema<BookingPayload> = yup.object({
     })
     .test("is-future-date", "Booking date cannot be in the past", (value) => {
       if (!value) return false;
-      const now = new Date();
       const inputDate = new Date(value);
-      return inputDate >= now;
+      const today = new Date();
+      inputDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+      return inputDate >= today;
     }),
   totalCost: yup
     .number()
