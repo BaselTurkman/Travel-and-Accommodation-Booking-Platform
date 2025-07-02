@@ -7,10 +7,13 @@ A modern React-based booking application built with TypeScript, leveraging a ran
 ## Table of Contents
 
 - [Overview](#overview)  
-- [Technologies & Dependencies](#technologies--dependencies)  
+- [Technologies & Dependencies](#technologies--dependencies)
+- [Demo](#demo)  
 - [Public Pages](#public-pages)  
 - [User Pages](#user-pages)  
-- [Admin Pages](#admin-pages)  
+- [Admin Pages](#admin-pages)
+- [Starting point](#starting-point)
+- [Project Scrum Board](#project-scrum-board) 
 - [Scripts](#scripts)  
 - [Getting Started](#getting-started)  
 - [Contact](#contact)  
@@ -125,6 +128,21 @@ Check out the demo video here: https://drive.google.com/file/d/17ehfZ9yevD4HRP0K
 
 #### Add/Edit Hotel Room Dialog  
 ![Hotel-Room-Dialog](src/assets/Readme-images/Add-Hotel-Room-Dialog.png)
+
+---
+
+---
+## Starting point
+
+I followed this UX: https://excalidraw.com/
+
+---
+
+---
+## Project Scrum Board
+
+My project is managed using an agile scrum board to track tasks and sprints.
+![Jira](src/assets/Readme-images/Jira.png)
 
 ---
 
