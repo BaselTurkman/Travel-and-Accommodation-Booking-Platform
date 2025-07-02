@@ -48,6 +48,13 @@ This project is a private React app using the latest tools to provide a scalable
 
 ---
 
+---
+## Demo
+
+Check out the demo video here: https://drive.google.com/file/d/17ehfZ9yevD4HRP0K86Pt6cOxFN4A-GMA/view?usp=sharing
+
+---
+
 ## Public Pages
 
 ### Login Page  
