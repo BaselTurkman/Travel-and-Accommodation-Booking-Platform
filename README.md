@@ -109,7 +109,7 @@ This project is a private React app using the latest tools to provide a scalable
 ### Hotel Rooms Management  
 ![Hotel-Room](src/assets/Readme-images/Rooms-page.png)
 
-#### Add Hotel Room Dialog  
+#### Add/Edit Hotel Room Dialog  
 ![Hotel-Room-Dialog](src/assets/Readme-images/Add-Hotel-Room-Dialog.png)
 
 ---
