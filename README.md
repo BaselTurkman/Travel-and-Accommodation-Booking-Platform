@@ -159,18 +159,27 @@ My project is managed using an agile scrum board to track tasks and sprints.
 
 ## Getting Started
 
-1. **Clone the repository:**  
+1. **Clone the Frontend Repository:**  
    ```bash
    git clone https://github.com/BaselTurkman/Travel-and-Accommodation-Booking-Platform
    cd booking
 
-2. **Install dependencies:**  
+2. **Install Frontend Dependencies:**  
    ```bash
    npm install
    
-3. **Run the development server:**  
+3. **Run the Frontend Development Server:**  
    ```bash
    npm run dev
+
+4. ## Clone the Backend Static Repository:
+   Make sure to clone this repository: https://github.com/BaselTurkman/Travel-and-Accommodation-Booking-static-BE.git
+   Then follow its Getting Started instructions to run the backend server and enable API data fetching.
+   
+5. ## Configure the API URL:
+   Ensure your `.env` file contains the following so the frontend can connect to the backend:
+   ```bash
+   VITE_API_URL="http://localhost:5000/api/"
 
 ---
 
