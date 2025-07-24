@@ -175,7 +175,7 @@ My project is managed using an agile scrum board to track tasks and sprints.
 1. **Clone the Frontend Repository:**  
    ```bash
    git clone https://github.com/BaselTurkman/Travel-and-Accommodation-Booking-Platform
-   cd booking
+   cd Travel-and-Accommodation-Booking-Platform     
 
 2. **Install Frontend Dependencies:**  
    ```bash
