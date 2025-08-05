@@ -2,21 +2,14 @@ import { Box, Grid, Typography } from "@mui/material";
 import useGetTrendingDestinationAPI from "../hooks/useGetTrendingDestinationAPI";
 import Destination from "./Destination";
 import MediaCardSkeleton from "@/components/Skeletons/MediaCardSkeleton";
-import { useState } from "react";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 const TrendingDestination = () => {
   const { trendingDestinations, isLoading, isError, refetch } =
     useGetTrendingDestinationAPI();
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   if (isError) {
     return (

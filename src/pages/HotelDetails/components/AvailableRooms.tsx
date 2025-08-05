@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import useGetAvailableRoomsAPI from "../hooks/useGetAvailableRoomsAPI";
 import { Box, Grid, Typography } from "@mui/material";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import HotelRoom from "@/components/HotelRoom";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface AvailableRoomsProps {
   hotelId: string;
@@ -13,15 +14,8 @@ interface AvailableRoomsProps {
 const AvailableRooms: FC<AvailableRoomsProps> = ({ hotelId }) => {
   const { availableRooms, isLoading, isError, refetch } =
     useGetAvailableRoomsAPI(hotelId);
-  const [retryCount, setRetryCount] = useState(0);
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
-  
   if (isError) {
     return (
       <RequestErrorFallback

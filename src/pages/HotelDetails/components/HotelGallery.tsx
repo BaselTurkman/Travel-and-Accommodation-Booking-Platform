@@ -5,6 +5,7 @@ import { Box, Grid, Modal, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface HotelGalleryProps {
   hotelId: string;
@@ -15,14 +16,7 @@ const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
     useGetHotelGalleryAPI(hotelId);
   const [open, setOpen] = useState(false);
   const [activeImg, setActiveImg] = useState<string | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleOpen = (url: string) => {
     setActiveImg(url);

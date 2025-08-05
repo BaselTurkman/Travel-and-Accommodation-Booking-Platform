@@ -12,6 +12,7 @@ import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
 import { SearchParams } from "@/types";
 import NoItemFound from "@/components/NoItemFound";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface HotelsContainerProps {
   searchParams: SearchParams;
@@ -26,9 +27,9 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
     useGetHotelsAPI(searchParams);
   const { editHotel, isPending } = useEditHotelAPI();
   const { showWarningSnackbar } = useSnackBar();
-  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedHotel, setSelectedHotel] = useState<HotelPayload | null>(null);
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleCloseDialog = () => {
     setSelectedHotel(null);
@@ -49,13 +50,6 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
     handleCloseDialog();
   };
 
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
-
   if (isError) {
     return (
       <RequestErrorFallback
@@ -73,7 +67,7 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
       </Grid>
     );
   }
-  
+
   const isEmpty = hotels.length === 0;
   const renderHotels = hotels.map((hotel) => (
     <Grid
@@ -84,10 +78,16 @@ const HotelsContainer: FC<HotelsContainerProps> = ({
     </Grid>
   ));
 
+  const renderContent = isEmpty ? (
+    <NoItemFound title="No Hotels Found" />
+  ) : (
+    renderHotels
+  );
+
   return (
     <>
       <Grid container spacing={2}>
-        {isEmpty ? <NoItemFound title="No Hotels Found"/> : renderHotels}
+        {renderContent}
       </Grid>
       {!isLoading && !isError && (
         <Box mt={5} display="flex" justifyContent="center">

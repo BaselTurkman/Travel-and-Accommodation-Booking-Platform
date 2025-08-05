@@ -12,6 +12,7 @@ import useEditCityAPI from "../hooks/useEditCityAPI";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import { cardColors } from "../constants";
 import NoItemFound from "@/components/NoItemFound";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface CitiesContainerProps {
   searchQuery: string;
@@ -20,17 +21,10 @@ interface CitiesContainerProps {
 const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
   const { cities, isLoading, isError, refetch } = useGetCitiesAPI();
   const { editCity, isPending } = useEditCityAPI();
-  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const { showWarningSnackbar } = useSnackBar();
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleEdit = (city: City) => {
     setSelectedCity(city);
@@ -82,18 +76,20 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
     </Grid>
   ));
 
+  const citiesToRender = isLoading ? (
+    <CityCardSkeleton />
+  ) : noCities ? (
+    <NoItemFound title="No cities available. Please add one." />
+  ) : noSearchResults ? (
+    <NoItemFound title="No city matches your search." />
+  ) : (
+    renderCities
+  );
+
   return (
     <>
       <Grid container spacing={2}>
-        {isLoading ? (
-          <CityCardSkeleton />
-        ) : noCities ? (
-          <NoItemFound title="No cities available. Please add one." />
-        ) : noSearchResults ? (
-          <NoItemFound title="No city matches your search." />
-        ) : (
-          renderCities
-        )}
+        {citiesToRender}
       </Grid>
 
       {selectedCity && (

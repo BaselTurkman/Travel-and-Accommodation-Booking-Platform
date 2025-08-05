@@ -11,19 +11,24 @@ import NoItemFound from "@/components/NoItemFound";
 import { useGetHotelRoomsAPI } from "../hooks/useGetHotelRoomsAPI";
 import useEditHotelRoomAPI from "../hooks/useEditHotelRoomAPI";
 import HotelRoom from "@/components/HotelRoom";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface HotelRoomsContainerProps {
   searchParams: SearchParams;
   onPageChange: (page: number) => void;
 }
-const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, searchParams}) => {
-  const { hotelRooms, isLoading, isError, refetch, pageNumber, totalPages } = useGetHotelRoomsAPI(searchParams);
+const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({
+  onPageChange,
+  searchParams,
+}) => {
+  const { hotelRooms, isLoading, isError, refetch, pageNumber, totalPages } =
+    useGetHotelRoomsAPI(searchParams);
   const { editHotelRoom, isPending } = useEditHotelRoomAPI();
   const { showWarningSnackbar } = useSnackBar();
-  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedHotelRoom, setSelectedHotel] =
     useState<HotelRoomPayload | null>(null);
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleCloseDialog = () => {
     setSelectedHotel(null);
@@ -44,13 +49,6 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
     handleCloseDialog();
   };
 
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
-
   if (isError) {
     return (
       <RequestErrorFallback
@@ -67,7 +65,8 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
         <BaseCardSkeleton />
       </Grid>
     );
-  }  
+  }
+
   const isEmpty = hotelRooms.length === 0;
   const renderHotels = hotelRooms.map((room) => (
     <Grid
@@ -78,12 +77,18 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
     </Grid>
   ));
 
+  const renderContent = isEmpty ? (
+    <NoItemFound title="No Rooms Found" />
+  ) : (
+    renderHotels
+  );
+
   return (
     <>
       <Grid container spacing={2}>
-        {isEmpty ? <NoItemFound title="No Hotels Found" /> : renderHotels}
+        {renderContent}
       </Grid>
-       {!isLoading && !isError && (
+      {!isLoading && !isError && (
         <Box mt={5} display="flex" justifyContent="center">
           <Pagination
             count={totalPages || 1}

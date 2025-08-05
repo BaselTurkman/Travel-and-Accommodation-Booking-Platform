@@ -6,6 +6,7 @@ import ReviewSkeleton from "@/components/Skeletons/ReviewSkeleton";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface HotelReviewsProps {
   hotelId: string;
@@ -17,14 +18,7 @@ const HotelReviews: FC<HotelReviewsProps> = ({ hotelId }) => {
   const { hotelReviews, isLoading, isError, refetch } =
     useGetHotelReviewsAPI(hotelId);
   const [currentPage, setCurrentPage] = useState(1);
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   if (isLoading) return <ReviewSkeleton />;
 

@@ -7,20 +7,13 @@ import "slick-carousel/slick/slick-theme.css";
 import { settings } from "../constants";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
-import { useState } from "react";
 import { MAX_RETRIES } from "@/constants";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 const FeaturedDeals = () => {
   const { featuredDeals, isLoading, isError, refetch } =
     useGetFeaturedDealAPI();
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   if (isError) {
     return (
