@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DialogState } from "./types";
 
-
 const initialState: DialogState = {
   isOpen: false,
   isPending: false,
   title: "",
   message: "",
-  onConfirm: () => {}
 };
 
 const dialogSlice = createSlice({
@@ -19,13 +17,11 @@ const dialogSlice = createSlice({
       action: PayloadAction<{
         title: string;
         message: string;
-        onConfirm: () => void;
       }>
     ) => {
       state.isOpen = true;
       state.title = action.payload.title;
       state.message = action.payload.message;
-      state.onConfirm = action.payload.onConfirm;
       state.isPending = false;
     },
     setDialogPending: (state, action: PayloadAction<boolean>) => {
