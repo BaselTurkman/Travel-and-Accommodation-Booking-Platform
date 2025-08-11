@@ -5,13 +5,12 @@ import HotelRoomFormDialog from "./HotelRoomFormDialog";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import NoItemFound from "@/components/NoItemFound";
 import { useGetHotelRoomsAPI } from "../hooks/useGetHotelRoomsAPI";
 import useEditHotelRoomAPI from "../hooks/useEditHotelRoomAPI";
 import HotelRoom from "@/components/HotelRoom";
 import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 interface HotelRoomsContainerProps {
   searchParams: SearchParams;
@@ -49,16 +48,6 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({
     handleCloseDialog();
   };
 
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
-
   if (isLoading) {
     return (
       <Grid container spacing={2}>
@@ -84,7 +73,11 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({
   );
 
   return (
-    <>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
       <Grid container spacing={2}>
         {renderContent}
       </Grid>
@@ -109,7 +102,7 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({
           formType="edit"
         />
       )}
-    </>
+    </WithRetry>
   );
 };
 

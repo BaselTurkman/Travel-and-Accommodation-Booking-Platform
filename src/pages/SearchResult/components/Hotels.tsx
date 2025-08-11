@@ -5,10 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
 import Hotel from "./Hotel";
 import { useAmenities } from "../context/useAmenities";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import NoItemFound from "@/components/NoItemFound";
 import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 const Hotels = () => {
   const { searchResult, isLoading, isError, refetch } = useGetSearchResultAPI();
@@ -34,16 +33,6 @@ const Hotels = () => {
 
   const isThereHotels = hotelsToRender.length !== 0;
 
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
-
   const renderContent = isLoading ? (
     <BaseCardSkeleton />
   ) : !isThereHotels ? (
@@ -53,22 +42,28 @@ const Hotels = () => {
   );
 
   return (
-    <Box mb={4}>
-      <Grid container spacing={2}>
-        {renderContent}
-      </Grid>
-      {isThereHotels && (
-        <Typography
-          mt={5}
-          variant="body1"
-          color="text.secondary"
-          align="center"
-        >
-          {hotelsToRender.length}{" "}
-          {hotelsToRender.length === 1 ? "hotel found" : "hotels found"}
-        </Typography>
-      )}
-    </Box>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
+      <Box mb={4}>
+        <Grid container spacing={2}>
+          {renderContent}
+        </Grid>
+        {isThereHotels && (
+          <Typography
+            mt={5}
+            variant="body1"
+            color="text.secondary"
+            align="center"
+          >
+            {hotelsToRender.length}{" "}
+            {hotelsToRender.length === 1 ? "hotel found" : "hotels found"}
+          </Typography>
+        )}
+      </Box>
+    </WithRetry>
   );
 };
 

@@ -6,24 +6,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { settings } from "../constants";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 const RecentVisitedHotels = () => {
   const { recentVisitedHotels, isLoading, isError, refetch } =
     useGetRecentVisitedHotelAPI();
   const { retryCount, handleRetry } = useRetryHandler(refetch);
-
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
 
   const renderVisitedHotels = recentVisitedHotels.map((hotel) => (
     <Box px={2} my={2} key={hotel.hotelId}>
@@ -32,18 +21,24 @@ const RecentVisitedHotels = () => {
   ));
 
   return (
-    <Box mb={4}>
-      <Typography variant="h5" gutterBottom>
-        Recently Visited Hotels
-      </Typography>
-      {isLoading ? (
-        <Grid container spacing={2}>
-          <BaseCardSkeleton />
-        </Grid>
-      ) : (
-        <Slider {...settings}>{renderVisitedHotels}</Slider>
-      )}
-    </Box>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
+      <Box mb={4}>
+        <Typography variant="h5" gutterBottom>
+          Recently Visited Hotels
+        </Typography>
+        {isLoading ? (
+          <Grid container spacing={2}>
+            <BaseCardSkeleton />
+          </Grid>
+        ) : (
+          <Slider {...settings}>{renderVisitedHotels}</Slider>
+        )}
+      </Box>
+    </WithRetry>
   );
 };
 

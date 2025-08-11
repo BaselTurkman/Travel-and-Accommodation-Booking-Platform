@@ -3,8 +3,6 @@ import { Grid } from "@mui/material";
 import CityCard from "./CityCard";
 import CityCardSkeleton from "@/components/Skeletons/CityCardSkeleton/CityCardSkeleton";
 import { FC, useState } from "react";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import isEqual from "fast-deep-equal";
 import CityFormDialog from "./CityFormDialog";
 import { City } from "../types";
@@ -13,6 +11,7 @@ import { useSnackBar } from "@/hooks/useSnackBar";
 import { cardColors } from "../constants";
 import NoItemFound from "@/components/NoItemFound";
 import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 interface CitiesContainerProps {
   searchQuery: string;
@@ -44,16 +43,6 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
     }
     handleCloseDialog();
   };
-
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
 
   const noCities = !isLoading && cities.length === 0;
 
@@ -87,7 +76,11 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
   );
 
   return (
-    <>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
       <Grid container spacing={2}>
         {citiesToRender}
       </Grid>
@@ -103,7 +96,7 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
           formType="edit"
         />
       )}
-    </>
+    </WithRetry>
   );
 };
 
