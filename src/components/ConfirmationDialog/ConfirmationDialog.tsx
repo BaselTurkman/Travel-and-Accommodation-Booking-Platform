@@ -12,29 +12,21 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { WarningAmberRounded, Close } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 
 const ConfirmationDialog = () => {
   const dispatch = useAppDispatch();
-  const { isOpen, title, message, isPending, onConfirm } =
-    useAppSelector(selectDialogState);
+  const { handleConfirm, handleCancel } = useConfirmationDialog();
 
-  const handleConfirm = () => {
-    if (onConfirm) onConfirm();
-    dispatch(closeDialog());
-  };
+  const { isOpen, title, message, isPending } =
+    useAppSelector(selectDialogState);
 
   const handleClose = () => {
     dispatch(closeDialog());
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={handleClose}
-      fullWidth
-      maxWidth="xs"
-     
-    >
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="xs">
       {title && message && (
         <>
           <IconButton
@@ -54,7 +46,6 @@ const ConfirmationDialog = () => {
               </Typography>
             </Box>
           </DialogTitle>
-
           <DialogContent>
             <Typography
               variant="body1"
@@ -77,7 +68,7 @@ const ConfirmationDialog = () => {
               Confirm
             </LoadingButton>
             <Button
-              onClick={handleClose}
+              onClick={handleCancel}
               color="error"
               variant="contained"
               size="large"

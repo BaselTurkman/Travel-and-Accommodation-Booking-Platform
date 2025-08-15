@@ -3,8 +3,9 @@ import useGetHotelGalleryAPI from "../hooks/useGetHotelGalleryAPI";
 import MediaCardSkeleton from "@/components/Skeletons/MediaCardSkeleton";
 import { Box, Grid, Modal, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
+import HotelImageThumbnail from "./HotelImageThumbnail";
+import WithRetry from "@/components/WithRetry";
 
 interface HotelGalleryProps {
   hotelId: string;
@@ -15,14 +16,7 @@ const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
     useGetHotelGalleryAPI(hotelId);
   const [open, setOpen] = useState(false);
   const [activeImg, setActiveImg] = useState<string | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleOpen = (url: string) => {
     setActiveImg(url);
@@ -34,40 +28,14 @@ const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
     setActiveImg(null);
   };
 
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
-
   const renderHotelGallery = hotelGallery.map((photo) => (
     <Grid key={photo.url} size={{ xs: 12, sm: 6, md: 4 }}>
-      <Box
-        component="img"
-        src={photo.url}
-        alt="Hotel photo"
-        onClick={() => handleOpen(photo.url)}
-        width="100%"
-        height={250}
-        borderRadius={2}
-        sx={{
-          objectFit: "cover",
-          cursor: "pointer",
-          transition: "0.3s",
-          "&:hover": {
-            opacity: 0.9,
-          },
-        }}
-      />
+      <HotelImageThumbnail handleOpen={handleOpen} url={photo.url} />
     </Grid>
   ));
 
   return (
-    <>
+    <WithRetry handleRetry={handleRetry} isError={isError} retryCount={retryCount}>
       <Grid container spacing={2}>
         {isLoading ? <MediaCardSkeleton /> : renderHotelGallery}
       </Grid>
@@ -108,7 +76,7 @@ const HotelGallery: FC<HotelGalleryProps> = ({ hotelId }) => {
           />
         </Box>
       </Modal>
-    </>
+    </WithRetry>
   );
 };
 

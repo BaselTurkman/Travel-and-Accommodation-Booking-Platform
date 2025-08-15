@@ -2,6 +2,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { FC } from "react";
 import { RequestErrorFallbackProps } from "./types";
 import ErrorIcon from "@mui/icons-material/Error";
+import { bounce } from "@/Animation/bounce";
 
 const RequestErrorFallback: FC<RequestErrorFallbackProps> = ({
   message = "Something went wrong.",
@@ -20,7 +21,10 @@ const RequestErrorFallback: FC<RequestErrorFallbackProps> = ({
       px={2}
       gap={2}
     >
-      <ErrorIcon color="error" sx={{ fontSize: 64 }} />
+      <ErrorIcon
+        color="error"
+        sx={{ fontSize: 64, animation: `${bounce} 1.5s infinite` }}
+      />
 
       <Typography variant="h6" color="error" gutterBottom>
         {message}

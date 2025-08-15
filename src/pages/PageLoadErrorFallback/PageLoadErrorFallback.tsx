@@ -1,4 +1,3 @@
-// src/components/fallbacks/PageLoadErrorFallback.tsx
 import { Box, Typography, Button } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import RefreshIcon from "@mui/icons-material/Refresh";

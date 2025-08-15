@@ -5,25 +5,29 @@ import HotelRoomFormDialog from "./HotelRoomFormDialog";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
 import BaseCardSkeleton from "@/components/Skeletons/BaseCardSkeleton";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import NoItemFound from "@/components/NoItemFound";
 import { useGetHotelRoomsAPI } from "../hooks/useGetHotelRoomsAPI";
 import useEditHotelRoomAPI from "../hooks/useEditHotelRoomAPI";
 import HotelRoom from "@/components/HotelRoom";
+import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 interface HotelRoomsContainerProps {
   searchParams: SearchParams;
   onPageChange: (page: number) => void;
 }
-const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, searchParams}) => {
-  const { hotelRooms, isLoading, isError, refetch, pageNumber, totalPages } = useGetHotelRoomsAPI(searchParams);
+const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({
+  onPageChange,
+  searchParams,
+}) => {
+  const { hotelRooms, isLoading, isError, refetch, pageNumber, totalPages } =
+    useGetHotelRoomsAPI(searchParams);
   const { editHotelRoom, isPending } = useEditHotelRoomAPI();
   const { showWarningSnackbar } = useSnackBar();
-  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedHotelRoom, setSelectedHotel] =
     useState<HotelRoomPayload | null>(null);
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleCloseDialog = () => {
     setSelectedHotel(null);
@@ -44,30 +48,14 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
     handleCloseDialog();
   };
 
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
-
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
-
   if (isLoading) {
     return (
       <Grid container spacing={2}>
         <BaseCardSkeleton />
       </Grid>
     );
-  }  
+  }
+
   const isEmpty = hotelRooms.length === 0;
   const renderHotels = hotelRooms.map((room) => (
     <Grid
@@ -78,12 +66,22 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
     </Grid>
   ));
 
+  const renderContent = isEmpty ? (
+    <NoItemFound title="No Rooms Found" />
+  ) : (
+    renderHotels
+  );
+
   return (
-    <>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
       <Grid container spacing={2}>
-        {isEmpty ? <NoItemFound title="No Hotels Found" /> : renderHotels}
+        {renderContent}
       </Grid>
-       {!isLoading && !isError && (
+      {!isLoading && !isError && (
         <Box mt={5} display="flex" justifyContent="center">
           <Pagination
             count={totalPages || 1}
@@ -104,7 +102,7 @@ const HotelRoomsContainer: FC<HotelRoomsContainerProps> = ({onPageChange, search
           formType="edit"
         />
       )}
-    </>
+    </WithRetry>
   );
 };
 

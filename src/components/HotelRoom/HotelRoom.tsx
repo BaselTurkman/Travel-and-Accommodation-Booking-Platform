@@ -8,17 +8,18 @@ import HotelAmenities from "@/components/HotelAmenities";
 import AddToCartButton from "@/components/Buttons/AddToCartButton";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import { HotelRoomProps } from "./types";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-import { addToCart, removeFromCart, selectIsRoomInCart } from "@/features/Cart";
+import { useAppSelector } from "@/store/store";
+import { selectIsRoomInCart } from "@/features/Cart";
 import { useConfirmationDialog } from "@/hooks/useConfirmationDialog";
 import useDeleteHotelRoomAPI from "./hooks/useDeleteHotelRoomAPI";
 import { HotelRoomPayload } from "@/types";
 import EditButton from "../Buttons/EditButton";
 import DeleteButton from "../Buttons/DeleteButton";
+import { useCart } from "@/hooks/useCart";
 
 const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
-  const dispatch = useAppDispatch();
+  const {addToCart, removeFromCart} = useCart()
   const isRoomInCart = useAppSelector(selectIsRoomInCart(room.roomId));
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { showConfirmationDialog } = useConfirmationDialog();
@@ -44,13 +45,13 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   };
 
   const handleDelete = () => {
-    dispatch(removeFromCart({ roomNumber: room.roomNumber }));
+    removeFromCart({ roomNumber: room.roomNumber });
     showWarningSnackbar({ message: "Room removed from your cart." });
   };
 
   const handleAdd = () => {
     setIsButtonDisabled(true);
-    dispatch(addToCart({ room }));
+    addToCart({ room });
     showSuccessSnackbar({ message: "Room added to cart successfully." });
     setTimeout(() => setIsButtonDisabled(false), 1500);
   };
