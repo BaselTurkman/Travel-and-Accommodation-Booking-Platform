@@ -7,19 +7,23 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import BookingThemeProvider from "./style/BookingThemeProvider";
 import ConfirmationDialog from "./components/ConfirmationDialog/ConfirmationDialog";
 import BookingSnackbar from "./components/Snackbar";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "./store/store";
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Provider store={Booking}>
-      <BookingThemeProvider>
-        <BookingQueryClientProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            {children}
-          </LocalizationProvider>
-          <BookingSnackbar />
-          <ConfirmationDialog />
-        </BookingQueryClientProvider>
-      </BookingThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <BookingThemeProvider>
+          <BookingQueryClientProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              {children}
+            </LocalizationProvider>
+            <BookingSnackbar />
+            <ConfirmationDialog />
+          </BookingQueryClientProvider>
+        </BookingThemeProvider>
+      </PersistGate>
     </Provider>
   );
 };
