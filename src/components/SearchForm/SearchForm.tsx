@@ -18,6 +18,7 @@ import ResetButton from "../Buttons/ResetButton/ResetButton";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import isEqual from "fast-deep-equal";
 import GuestRoomSelector from "../Fields/GuestRoomSelector";
+import { buildSearchParams } from "@/pages/SearchResult/utils/buildSearchParams";
 
 const SearchForm: FC<SearchFormProps> = ({
   isInSearchPage = true,
@@ -36,10 +37,13 @@ const SearchForm: FC<SearchFormProps> = ({
       return;
     }
     dispatch(setSearchQuery({ ...values }));
+    const queryString = buildSearchParams(values);
+
     if (!isInSearchPage) {
-      navigate("search-result");
+      navigate(`search-result?${queryString}`);
     } else {
       setIsInSearchMode(true);
+      navigate(`./?${queryString}`);
     }
   };
 
@@ -47,6 +51,7 @@ const SearchForm: FC<SearchFormProps> = ({
     resetForm();
     setIsInSearchMode(false);
     dispatch(clearSearchQuery());
+    navigate("./");
   };
 
   const formikProps = useFormik({
@@ -82,9 +87,11 @@ const SearchForm: FC<SearchFormProps> = ({
                 setAdults: (val) => formikProps.setFieldValue("adults", val),
                 setChildren: (val) =>
                   formikProps.setFieldValue("children", val),
-                setRooms: (val) => formikProps.setFieldValue("rooms", val),
+                setRooms: (val) =>
+                  formikProps.setFieldValue("numberOfRooms", val),
               }}
             />
+
             <SearchButton disabled={isLoading} loading={false} />
             {isInSearchMode && <ResetButton onClick={handleClearSearch} />}
           </Stack>
