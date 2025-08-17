@@ -6,6 +6,7 @@ export interface BaseResponse {
   status: number;
   traceId: string;
   errors: Record<string, string[]>;
+  message: string
 }
 
 export type AxiosBaseError = AxiosError<BaseResponse>

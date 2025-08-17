@@ -3,8 +3,6 @@ import { Grid } from "@mui/material";
 import CityCard from "./CityCard";
 import CityCardSkeleton from "@/components/Skeletons/CityCardSkeleton/CityCardSkeleton";
 import { FC, useState } from "react";
-import { MAX_RETRIES } from "@/constants";
-import RequestErrorFallback from "@/components/RequestErrorFallback";
 import isEqual from "fast-deep-equal";
 import CityFormDialog from "./CityFormDialog";
 import { City } from "../types";
@@ -12,6 +10,8 @@ import useEditCityAPI from "../hooks/useEditCityAPI";
 import { useSnackBar } from "@/hooks/useSnackBar";
 import { cardColors } from "../constants";
 import NoItemFound from "@/components/NoItemFound";
+import useRetryHandler from "@/hooks/useRetryHandler";
+import WithRetry from "@/components/WithRetry";
 
 interface CitiesContainerProps {
   searchQuery: string;
@@ -20,17 +20,10 @@ interface CitiesContainerProps {
 const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
   const { cities, isLoading, isError, refetch } = useGetCitiesAPI();
   const { editCity, isPending } = useEditCityAPI();
-  const [retryCount, setRetryCount] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const { showWarningSnackbar } = useSnackBar();
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   const handleEdit = (city: City) => {
     setSelectedCity(city);
@@ -50,16 +43,6 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
     }
     handleCloseDialog();
   };
-
-  if (isError) {
-    return (
-      <RequestErrorFallback
-        onRetry={handleRetry}
-        retryCount={retryCount}
-        maxRetries={MAX_RETRIES}
-      />
-    );
-  }
 
   const noCities = !isLoading && cities.length === 0;
 
@@ -82,18 +65,24 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
     </Grid>
   ));
 
+  const citiesToRender = isLoading ? (
+    <CityCardSkeleton />
+  ) : noCities ? (
+    <NoItemFound title="No cities available. Please add one." />
+  ) : noSearchResults ? (
+    <NoItemFound title="No city matches your search." />
+  ) : (
+    renderCities
+  );
+
   return (
-    <>
+    <WithRetry
+      handleRetry={handleRetry}
+      isError={isError}
+      retryCount={retryCount}
+    >
       <Grid container spacing={2}>
-        {isLoading ? (
-          <CityCardSkeleton />
-        ) : noCities ? (
-          <NoItemFound title="No cities available. Please add one." />
-        ) : noSearchResults ? (
-          <NoItemFound title="No city matches your search." />
-        ) : (
-          renderCities
-        )}
+        {citiesToRender}
       </Grid>
 
       {selectedCity && (
@@ -107,7 +96,7 @@ const CitiesContainer: FC<CitiesContainerProps> = ({ searchQuery }) => {
           formType="edit"
         />
       )}
-    </>
+    </WithRetry>
   );
 };
 

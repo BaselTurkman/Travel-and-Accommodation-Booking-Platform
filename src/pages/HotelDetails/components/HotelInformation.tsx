@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import useGetHotelDetailsAPI from "../hooks/useGetHotelDetailsAPI";
 import HotelAmenities from "@/components/HotelAmenities";
 import { Box, Rating, Stack, Typography } from "@mui/material";
@@ -6,6 +6,7 @@ import InteractiveMap from "@/components/InteractiveMap";
 import HotelInformationSkeleton from "@/components/Skeletons/HotelInformationSkeleton/HotelInformationSkeleton";
 import { MAX_RETRIES } from "@/constants";
 import RequestErrorFallback from "@/components/RequestErrorFallback";
+import useRetryHandler from "@/hooks/useRetryHandler";
 
 interface HotelInformationProps {
   hotelId: string;
@@ -14,14 +15,7 @@ interface HotelInformationProps {
 const HotelInformation: FC<HotelInformationProps> = ({ hotelId }) => {
   const { hotelInformation, isLoading, isError, refetch } =
     useGetHotelDetailsAPI(hotelId);
-  const [retryCount, setRetryCount] = useState(0);
-
-  const handleRetry = () => {
-    if (retryCount < MAX_RETRIES) {
-      setRetryCount((prev) => prev + 1);
-      refetch();
-    }
-  };
+  const { retryCount, handleRetry } = useRetryHandler(refetch);
 
   if (isLoading) return <HotelInformationSkeleton />;
 

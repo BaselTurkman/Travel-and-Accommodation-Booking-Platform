@@ -3,5 +3,4 @@ export interface DialogState {
     title: string;
     message: string;
     isPending?: boolean;
-    onConfirm: () => void;
   }

@@ -1,13 +1,12 @@
 import HotelRoom from "@/components/HotelRoom";
-import { selectCartItems } from "@/features/Cart";
-import { useAppSelector } from "@/store/store";
 import { Grid } from "@mui/material";
 import NoItemsFound from "./NoItemsFound";
+import { useCart } from "@/hooks/useCart";
 
 const CartItems = () => {
-  const rooms = useAppSelector(selectCartItems);
+  const { cart } = useCart();
 
-  if (rooms.length === 0) {
+  if (cart.length === 0) {
     return (
       <Grid container>
         <NoItemsFound />
@@ -15,7 +14,7 @@ const CartItems = () => {
     );
   }
 
-  const renderCartItems = rooms.map(({ room }) => (
+  const renderCartItems = cart.map(({ room }) => (
     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={room.roomId}>
       <HotelRoom room={room} />
     </Grid>
