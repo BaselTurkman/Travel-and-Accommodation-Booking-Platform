@@ -2,9 +2,7 @@ import { BaseAutoCompleteItem } from "@/components/Fields/AutoCompleteField/type
 
 export interface BookingPayload {
   customerName: string;
-  hotelName: string;
-  roomNumber: string;
-  roomType: string;
+  roomNumber: number;
   bookingDateTime: string;
   totalCost: number;
   paymentMethod: string;

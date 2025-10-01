@@ -3,10 +3,8 @@ import { BookingPayload, PaymentMethod } from "./types";
 export const initialValues: BookingPayload = {
   bookingDateTime: "",
   customerName: "",
-  hotelName: "",
   paymentMethod: "",
-  roomNumber: "",
-  roomType: "",
+  roomNumber: 2,
   totalCost: 1,
 };
 
@@ -19,11 +17,11 @@ export const paymentMethods: Array<PaymentMethod> = [
   {
     name: "Master Card",
     value: "Master Card",
-    id: 2
+    id: 2,
   },
   {
     name: "Cash",
     value: "Cash",
-    id: 3
+    id: 3,
   },
 ];

@@ -16,7 +16,7 @@ const CartItems = () => {
 
   const renderCartItems = cart.map(({ room }) => (
     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={room.roomId}>
-      <HotelRoom room={room} />
+      <HotelRoom room={room} isBooking={true} />
     </Grid>
   ));
   return (

@@ -4,5 +4,6 @@ export interface HotelRoomProps {
   room: Room;
   onEdit?: (roomPayload: HotelRoomPayload) => void;
   actionButtons?: boolean;
+  isBooking?: boolean
 }
 

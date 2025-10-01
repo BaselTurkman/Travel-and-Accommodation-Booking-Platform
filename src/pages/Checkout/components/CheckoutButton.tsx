@@ -7,7 +7,11 @@ import { initialValues } from "../constants";
 import useAddBookingAPI from "../hooks/useAddBookingAPI";
 import CheckoutFormDialog from "./CheckoutFormDialog";
 
-function CheckoutButton() {
+interface CheckoutButtonProps {
+  roomNumber: number;
+}
+
+function CheckoutButton({ roomNumber }: CheckoutButtonProps) {
   const [open, setOpen] = useState(false);
   const { addBooking, isPending } = useAddBookingAPI();
   const handleClose = () => setOpen(false);
@@ -15,17 +19,20 @@ function CheckoutButton() {
   const handleAdd = (
     values: BookingPayload,
     helpers: FormikHelpers<BookingPayload>
-  ) => {
-    addBooking(values, {
-      onSuccess: () => {
-        helpers.resetForm();
-        handleClose();
-      },
-    });
+  ) => {    
+    addBooking(
+      { ...values, roomNumber },
+      {
+        onSuccess: () => {
+          helpers.resetForm();
+          handleClose();
+        },
+      }
+    );
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" my={5}>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Button
         variant="contained"
         endIcon={<PaymentIcon />}

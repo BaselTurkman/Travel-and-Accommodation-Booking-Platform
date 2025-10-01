@@ -3,9 +3,7 @@ import { BookingPayload } from "./types";
 
 export const bookingSchema: yup.ObjectSchema<BookingPayload> = yup.object({
   customerName: yup.string().required("Customer name is required"),
-  hotelName: yup.string().required("Hotel name is required"),
-  roomNumber: yup.string().required("Room number is required"),
-  roomType: yup.string().required("Room type is required"),
+  roomNumber: yup.number().required(),
   bookingDateTime: yup
     .string()
     .required("Booking date and time is required")

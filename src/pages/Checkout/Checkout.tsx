@@ -3,7 +3,6 @@ import { Stack, Typography, Box } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import CartItems from "./components/CartItems";
 import UserInformation from "./components/UserInformation";
-import CheckoutButton from "./components/CheckoutButton";
 import { useAppSelector } from "@/store/store";
 import { selectCartItemsCount, selectTotalPrice } from "@/features/Cart";
 import routeHOC from "@/routes/HOCs/routeHOCs";
@@ -44,7 +43,6 @@ const Checkout = () => {
             </Typography>
           </Box>
         )}
-        {cartLength !== 0 && <CheckoutButton />}
       </Stack>
     </PageContainer>
   );

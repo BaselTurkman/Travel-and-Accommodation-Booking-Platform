@@ -22,17 +22,6 @@ const CheckoutFormContent = () => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField name="customerName" aria-label="Enter a Customer Name" />
         </Grid>
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField name="hotelName" aria-label="Enter a Hotel Name" />
-        </Grid>
-      </FormSection>
-      <FormSection title="Room Info">
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField name="roomNumber" aria-label="Enter a Room Number" />
-        </Grid>
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField name="roomType" aria-label="Enter a Room Type" />
-        </Grid>
       </FormSection>
       <FormSection title="Payment">
         <Grid size={{ xs: 12 }}>

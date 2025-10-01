@@ -16,10 +16,16 @@ import { HotelRoomPayload } from "@/types";
 import EditButton from "../Buttons/EditButton";
 import DeleteButton from "../Buttons/DeleteButton";
 import { useCart } from "@/hooks/useCart";
+import CheckoutButton from "@/pages/Checkout/components/CheckoutButton";
 
-const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
+const HotelRoom: FC<HotelRoomProps> = ({
+  room,
+  onEdit,
+  actionButtons,
+  isBooking = false,
+}) => {
   const { showSuccessSnackbar, showWarningSnackbar } = useSnackBar();
-  const {addToCart, removeFromCart} = useCart()
+  const { addToCart, removeFromCart } = useCart();
   const isRoomInCart = useAppSelector(selectIsRoomInCart(room.roomId));
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { showConfirmationDialog } = useConfirmationDialog();
@@ -81,7 +87,7 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
   };
 
   const renderCartButton = (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box display="flex" justifyContent={isBooking? "space-between" : "center"} alignItems="center">
       <AddToCartButton
         onClick={handleCartAction}
         disabled={isButtonDisabled}
@@ -89,16 +95,14 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
         color={isRoomInCart ? "error" : "primary"}
         variant={isRoomInCart ? "contained" : "outlined"}
       />
+      {isBooking && <CheckoutButton roomNumber={roomNumber} />}
     </Box>
   );
 
   const renderActionButtons = (
     <Box display="flex" justifyContent="space-between" bgcolor="w">
       <EditButton onClick={() => onEdit?.(roomPayload)}>Edit</EditButton>
-      <DeleteButton
-        loading={isPending}
-        onClick={handleRoomDelete}
-      >
+      <DeleteButton loading={isPending} onClick={handleRoomDelete}>
         Delete
       </DeleteButton>
     </Box>
@@ -149,7 +153,6 @@ const HotelRoom: FC<HotelRoomProps> = ({ room, onEdit, actionButtons }) => {
           <HotelAmenities amenities={roomAmenities} />
           <Divider sx={{ mb: 1 }} />
         </Stack>
-
         {actionButtons ? renderActionButtons : renderCartButton}
       </Stack>
     </BaseCard>

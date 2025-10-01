@@ -47,13 +47,13 @@ const GenericFormDialog = <T extends FormikValues>({
             <Stack gap={2}>{children}</Stack>
           </DialogContent>
           <DialogActions
-            sx={{ px: 3, pb: 2, display: "flex", justifyContent: "flex-start" }}
+            sx={{ px: 3, pb: 2, display: "flex", justifyContent: "flex-end" }}
           >
-            <Button type="submit" variant="contained" loading={isPending}>
-              {ButtonLabel}
-            </Button>
             <Button variant="contained" color="error" onClick={closeDialog}>
               Cancel
+            </Button>
+            <Button type="submit" variant="contained" loading={isPending}>
+              {ButtonLabel}
             </Button>
           </DialogActions>
         </Form>
