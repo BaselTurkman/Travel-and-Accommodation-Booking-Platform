@@ -16,7 +16,11 @@ const useAddBookingAPI = () => {
       });
       //Since the response body doesn't include a booking ID, it's currently hardcoded to 1
       navigate(`/me/confirmation/1`);
-      setTimeout(() => clearCart(), 1000);
+      // const roomNumber = payload.roomNumber
+      // setTimeout(() => removeFromCart({roomNumber}), 1000);
+      
+      //Since the response body doesn't include roomNumber to remove it from the cart, i will remove all the rooms :3
+       setTimeout(() => clearCart(), 1000);
     },
   });
   return {
